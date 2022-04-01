@@ -1,0 +1,104 @@
+:host nb-card{margin:0;height:calc(100vh - 2 * 2.5rem)}:host .navigation .link{display:inline-block;text-decoration:none}:host .navigation .link nb-icon{font-size:2rem;vertical-align:middle}:host .links nb-icon{font-size:2.5rem}:host nb-card-body{display:flex;width:100%}:host nb-auth-block{margin:auto}
+@media (max-width: 767.98px){:host nb-card{border-radius:0;height:100vh}}:host ::ng-deep nb-layout .layout .layout-container
+.content .columns nb-layout-column{padding:2.5rem}@media (max-width: 767.98px)
+{:host ::ng-deep nb-layout .layout .layout-container .content .columns nb-layout-column{padding:0}}
+
+.login-content{
+    margin: -113px 17px 0px -14px;
+}
+.logo{
+    margin-top: -200px;
+}
+
+.auth-wrapper{
+display: flex;
+height: 100%;
+> div{
+    width: 100%;
+}
+    nb-card{
+        max-width: 100%;
+        margin: 0 auto !important;
+        height: 100% !important;
+        overflow: hidden;
+        border-radius: 0;
+        border: 0;
+        nb-card-body{
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            > div{
+                width: 100%;
+                overflow: hidden;
+                height: 100%;
+                .row{
+                    height: 100%;
+                    .col-md-6:nth-child(2){
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+            .brand-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                background: #222c45;
+                // padding: 20px;
+                text-align: center;
+                .brand-name {
+                    max-width: 350px;
+                }
+                h1 {
+                    color: #fff;
+                    margin-bottom: 15px;
+                }
+                p{
+                    color: #fff;
+                    font-size: 12px;
+                    line-height: 20px;
+                }
+            }
+            .auth-content {
+                max-width: 350px;
+                margin: 0 auto;
+                .status-primary{
+                    background: #222c45;
+                    border-color: #222c45;
+                    &:hover{
+                        border-color: rgba(34, 34, 34, .8);
+                        background: rgba(34, 34, 34, .8);
+                    }
+                }
+                a{
+                    &:hover{
+                        color: #3366ffc7 !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media (max-width: 480px) {
+    .logo{
+        margin-top: -101px;
+    }
+    .login-content{
+        margin: -114px 10px 10px 10px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .logo{
+        margin-top: -180px;
+    }
+}
+@media (min-width: 768px) and (max-width: 1024px){
+    .logo{
+        margin-top: -325px;
+    }
+}

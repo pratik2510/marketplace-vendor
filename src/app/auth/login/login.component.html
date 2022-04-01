@@ -1,0 +1,74 @@
+<div class="auth-wrapper">
+  <div>
+    <nb-card>
+      <nb-card-body>
+        <div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="brand-wrapper">
+                <img src="assets/images/my-login-page-icon.png" class="text-center w-100 m-0" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="language-dropwown header-language-icon">
+                <ngx-select-language></ngx-select-language>
+              </div>
+              <div class="auth-content mt-0">
+                <img src="assets/images/l32_logo.png" class="text-center logo" height="310px" />
+                <div class="login-content">
+                  <h2 id="title" class="title text-center mb-4"> {{ 'LOGIN_PAGE.SELLER_LOGIN' | translate }} </h2>
+                  <p class="sub-title text-center"> {{ 'LOGIN_PAGE.WELCOME_TEXT' | translate }}</p>
+                  <form aria-labelledby="title" [formGroup]="loginForm" (ngSubmit)="login(loginForm.valid)">
+                    <div class="form-control-group mb-4">
+                      <label class="label label_color" for="userName">
+                        {{ 'LOGIN_PAGE.USERNAME' | translate }} :
+                      </label>
+                      <input nbInput fullWidth fieldSize="large" autofocus id="userName"
+                        placeholder="{{'LOGIN_PAGE.PLACE_HOLDER.EMAIL' | translate }}" formControlName="userName"
+                        (input)="onChangeInput($event)" class="dark-bg"
+                        [status]="(submitted && f.userName.errors && f.userName.errors.required) ? 'danger' : null ">
+                      <div *ngIf="submitted && f.userName.errors">
+                        <div *ngIf="f.userName.errors.required" class="caption status-danger mt-1">
+                          {{ 'LOGIN_PAGE.ERROR.USERNAME' | translate }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-control-group mb-4">
+                      <label class="label label_color" for="input-password">
+                        {{ 'LOGIN_PAGE.PASSWORD' | translate }} :
+                      </label>
+                      <input nbInput fullWidth name="password" type="password" id="input-password" class="dark-bg"
+                        placeholder="{{'LOGIN_PAGE.PLACE_HOLDER.PASSWORD' | translate }}" formControlName="password"
+                        fieldSize="large" (input)="onChangeInput($event)"
+                        [status]="(submitted && f.password.errors && f.password.errors.required) ? 'danger' : null ">
+                      <div *ngIf="submitted && f.password.errors">
+                        <div *ngIf="f.password.errors.required" class="caption status-danger mt-1">
+                          {{ 'LOGIN_PAGE.ERROR.PASSWORD' | translate }}
+                        </div>
+                      </div>
+                      <span class="label-with-link">
+                        <a class="forgot-password label_color caption-2 float-right mt-2 mb-2"
+                          [routerLink]="['/auth','forgot-password']">
+                          {{ 'LOGIN_PAGE.FORGOT_PASSWORD' | translate }}
+                        </a>
+                      </span>
+                    </div>
+                    <button nbButton type="submit" fullWidth status="primary" size="large" nbButton status="info" hero>
+                      {{ 'LOGIN_PAGE.LOGIN' | translate }}
+                      <i class="fa fa-spinner fa-spin mr-2 ml-2" aria-hidden="true" *ngIf="isLoading"></i>
+                    </button>
+                    <div *ngIf="submitted">
+                      <div *ngIf="apiError" class="caption status-danger mt-3">
+                        {{apiError}}
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<div *ngIf="chartOption &&  ChartData && ChartData.length>0 && chartLabels.length > 0 && ChartType ">
+    <div *ngIf="ChartType === 'bar' || ChartType === 'line'">
+        <canvas baseChart [datasets]="ChartData" [labels]="chartLabels" [options]="chartOptions" [chartType]="ChartType"
+            [legend]="chartLegend">
+        </canvas>
+    </div>
+</div>
+
+<div *ngIf="chartOption &&  ChartData && ChartData.length > 0 && chartLabels.length > 0 && ChartType">
+    <div *ngIf="ChartType === 'doughnut' || ChartType === 'pie'">
+        <canvas baseChart [data]="ChartData[0]['data']" [labels]="chartLabels" [chartType]="ChartType">
+        </canvas>
+    </div>
+</div>

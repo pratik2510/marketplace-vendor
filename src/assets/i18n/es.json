@@ -1,0 +1,239 @@
+{
+    "COMMON_KEYS": {
+        "SPANISH": "Española",
+        "ENGLISH": "English",
+        "LUMIERE": "Centro de vendedores Lumiere32",
+        "BACK": "atrás",
+        "SAVE": "Ahorrar",
+        "ACTION": "Acción",
+        "FOOTER1": "Derechos de autor © Lumiere32",
+        "FOOTER2": "Todos los derechos reservados",
+        "SR_NO": "No Señor.",
+        "CALENDAR": {
+            "LAST7DAYS": "Los últimos 7 días",
+            "LAST30DAYS": "Últimos 30 días",
+            "LAST3MONTH": "Últimos 3 meses",
+            "LAST5MONTH": "Últimos 5 meses"
+        }
+    },
+    "LOGIN_PAGE": {
+        "SELLER_LOGIN": "INGRESO DEL VENDEDOR",
+        "LOGIN": "acceso",
+        "WELCOME_TEXT": "Bienvenido de nuevo, inicie sesión en su cuenta.",
+        "USERNAME": "Nombre de usuario",
+        "PASSWORD": "Contraseña",
+        "FORGOT_PASSWORD": "¿Has olvidado tu contraseña?",
+        "PLACE_HOLDER": {
+            "EMAIL": "Introduzca su nombre de usuario",
+            "PASSWORD": "Introducir la contraseña"
+        },
+        "ERROR": {
+            "USERNAME": "Se requiere nombre de usuario",
+            "PASSWORD": "se requiere contraseña"
+        }
+    },
+    "PRODUCT_MODULE": {
+        "PRODUCT": "Producto",
+        "LIVE_PRODUCT": "Producto vivo",
+        "ADD": "Agregar",
+        "EDIT": "Editar",
+        "ADD_DUPLICATE": "Agregar duplicado",
+        "DETAIL": "Detalle",
+        "PRODUCT_REGION": "Región del producto",
+        "SELECT_COUNTRY": "Seleccionar país",
+        "SELECT_LANGUAGE": "Seleccione el idioma",
+        "PRODUCT_DETAIL": "Detalle del producto",
+        "APPROVED_STATUS": "Estado aprobado",
+        "REJECT_MESSAGE": "Mensaje de rechazo",
+        "NAME": "Nombre",
+        "SKU_PN_CDE": "SKU/PN CDE",
+        "UOM": "UOM",
+        "SUPPLY_TYPE": "Tipo de alimentación",
+        "MANUFACTURER_BRAND": "Fabricante / Marcas",
+        "CATEGORY": "Categoría",
+        "SPECIALITY_TYPE": "Tipo de especialidad",
+        "COUNTRY_ORIGIN": "País de origen",
+        "DELIVERY_TIME": "Tiempo de entrega (número de días)",
+        "QUANTITY": "Cantidad / Stock",
+        "SELLER_FEE": "Tarifa del vendedor",
+        "PRICE": "Precio",
+        "QUOTE_ONLY": "¿Solo cotizar?",
+        "DISCOUNT_CODE": "No / Deshabilitar código de descuento",
+        "WALLET_PRICE": "Anular el precio de la billetera",
+        "COMPARE_PRICE": "Comparar a precio",
+        "MEDIA": "Medios de comunicación",
+        "CATALOG_FILE": "Archivo de catálogo",
+        "NAME_IMAGE": "Nombre / Imagen",
+        "NAME_IMAGE_INFO": "(Haga clic en esa imagen para establecerla como imagen predeterminada)",
+        "CATALOG": "Catalogar",
+        "SET_DEFAULT_IMAGE_BTN": "Establecer por defecto",
+        "DEFAULT_BTN": "Defecto",
+        "PRODUCT_IMAGE": "Imágenes del producto",
+        "PRODUCT_DESCRIPTION": "Descripción del producto",
+        "SHORT_DESCRIPTION": "Breve descripción",
+        "EMBEDDED_VIDEO": "Video incrustado",
+        "MAIN_DESCRIPTION": "Descripción principal",
+        "FEATURES": "Características",
+        "PASTE_CODE": "Pegar solo el código incrustado",
+        "WARRANTY": "Garantía",
+        "VARIANTS": "Variantes",
+        "PRODUCT_MULTIPLE_OPTION": "Este producto tiene múltiples opciones",
+        "ADD_VARIANT": "Agregar variante",
+        "QUOTE": "Cita",
+        "VARIANT_TABLE": {
+            "VARIANT_ID": "ID de variante",
+            "PACKAGE": "Paquete",
+            "IS_QUOTE": "¿Es la cotización?",
+            "DELIVERY_TIME": "El tiempo de entrega"
+        },
+        "SEO": "SEO",
+        "META_TITLE": "Meta título",
+        "META_KEYWORD": "Meta palabra clave",
+        "META_DESCRIPTION": "Metadescripción",
+        "VALIDATE_PNCDE": "Validar PN CDE",
+        "VALIDATE": "Validar",
+        "EDIT_PNCDE": "Editar PN CDE",
+        "PLACE_HOLDER": {
+            "COUNTRY": "Seleccione un país",
+            "LANGUAGE": "Selecciona un idioma",
+            "PRODUCT_NAME": "Ingrese el nombre del producto",
+            "SKU_PN_CDE": "Ingrese SKU / PN CDE",
+            "UOM": "Ingrese UOM",
+            "SUPPLY_TYPE": "Seleccione un tipo de suministro",
+            "MANUFACTURER_TYPE": "Seleccione un fabricante / marcas",
+            "CATEGORY": "Seleccione una categoría",
+            "SPECIALITY_TYPE": "Seleccione un tipo de especialidad",
+            "COUNTRY_ORIGIN": "Seleccione un origen de categoría",
+            "DELIVERY_TIME": "Ingrese el tiempo de entrega",
+            "QUANTITY_STOCK": "Ingrese Cantidad / Stock",
+            "OVERRIDE_WALLET": "Anular el precio de la billetera",
+            "PRICE": "Precio del producto",
+            "COMPARE_PRICE": "Comparar a precio",
+            "CATALOG": "Catalogar",
+            "PRODUCT_IMAGE": "Imágenes del producto",
+            "SHORT_DESCRIPTION": "Breve descripción",
+            "EMBEDDED_VIDEO": "Video incrustado",
+            "META_TITLE": "Meta título",
+            "META_KEY": "Meta palabra clave",
+            "META_DESCRIPTION": "Metadescripción",
+            "PACKAGE": "Ingresar paquete"
+        },
+        "ERROR": {
+            "COUNTRY": "Seleccionar país",
+            "LANGUAGE": "Seleccione el idioma",
+            "PRODUCT_NAME": "El nombre del producto es obligatorio",
+            "SKU_PN_CDE": "Se requiere SKU / PN CDE",
+            "SUPPLY_TYPE": "Seleccione el tipo de suministro",
+            "CATEGORY": "Selecciona una categoría",
+            "PRODUCT_PRICE": "Ingrese el precio del producto",
+            "VARIANT_PRICE": "Ingrese precio",
+            "QUANTITY": "Ingrese la cantidad",
+            "QUANTITY_MIN": "El valor de cantidad / stock debe ser mayor que 0",
+            "PRICE_MIN": "El valor del precio debe ser mayor que 0",
+            "QUANTITY_PATTERN": "Valor de cantidad no válido"
+        }
+    },
+    "PRODUCT_LIST": {
+        "TITTLE": {
+            "LIVE_PRODUCTS": "Productos en vivo",
+            "PRODUCTS": "Productos",
+            "TODAYORDER": "Pedidos de hoy",
+            "TOTALORDER": "Órdenes totales",
+            "OUTOFSTOCK": "agotado"
+        },
+        "SEARCH": "Buscar",
+        "COUNTRY": "País",
+        "CATEGORY": "Categoría",
+        "IMPORT": "Importar",
+        "ADD_NEW": "Añadir nueva",
+        "SR_NO": "No Señor.",
+        "PRODUCT_ID": "Identificación de producto",
+        "PRODUCT_CODE": "Código de producto",
+        "NAME": "Nombre",
+        "MANUFACTURER": "Fabricante",
+        "PRICE": "Precio",
+        "APPROVED_STATUS": "Estado aprobado",
+        "NO_DATA_FOUND": "Todavía no hay ningún producto.",
+        "VARIANT": "Variante",
+        "QUANTITY": "Cantidad",
+        "SALE_PRICE": "Precio de venta",
+        "WALLET_PRICE": "Precio de cartera",
+        "EXPORT": "exportar",
+        "PLACE_HOLDER": {
+            "SEARCH_TXT": "Buscar nombre / código",
+            "SELECT_COUNTRY": "Seleccione un país",
+            "SELECT_CATEGORY": "Seleccione una categoría"
+        }
+    },
+    "ORDER_MODULE": {
+        "ORDER": "Pedido",
+        "EXPORT_ORDER": "Orden de exportación",
+        "PURCHASE_ORDER": "Orden de compra número",
+        "DATE": "Fecha",
+        "SELECT_DURATION": "Seleccionar duración",
+        "ORDER_TOTAL": "Total del pedido",
+        "NO_DATA_FOUND": "Aún no hay ningún pedido.",
+        "PLACE_HOLDER": {
+            "SEARCH_TXT": "Buscar",
+            "SELECT_DATE": "Seleccionar duración (AAAA-MM-DD)"
+        }
+    },
+    "USER_PROFILE": {
+        "MY_PROFILE": "Mi perfil",
+        "PROFILE_DETAIL": "Detalle de perfil",
+        "NAME": "Nombre",
+        "PICKUP_ADDRESS": "Dirección de entrega",
+        "STREET_NAME": "Nombre de la calle",
+        "USER_NAME": "Nombre de usuario",
+        "EMAIL_ID": "Identificación de correo",
+        "FLOOR_NUMBER": "Numero de piso",
+        "HOUSE_NUMBER": "Número de casa",
+        "MOBILE_NUMBER": "Número de teléfono móvil",
+        "BUILDER_NUMBER": "Número de constructor",
+        "PINCODE": "Código PIN",
+        "CC_EMAIL": "ID de correo electrónico CC",
+        "ERROR": {
+            "MOBILE": "Se requiere el número de celular",
+            "MOBILE_PATTERN": "El número de móvil debe tener entre 5 y 15 dígitos",
+            "PICKUP_ADDRESS": "Se requiere la dirección de recogida",
+            "PINCODE": "Se requiere código PIN"
+        }
+    },
+    "SIDEBAR_MENU": {
+        "DASHBOARD": "Tablero",
+        "PRODUCT": "Producto",
+        "MY_PRODUCTS": "Mis productos",
+        "LIVE_PRODUCT": "Productos en vivo",
+        "ORDER": "Pedido"
+    },
+    "DROPDOWN_OPTION": {
+        "USER_PROFILE": "Perfil",
+        "CHANGE_PASSWORD": "Cambiar la contraseña",
+        "LOGOUT": "Cerrar sesión",
+        "DUPLICATE": "Duplicada",
+        "EDIT": "Editar",
+        "DOWNLOAD_PO": "Descargar PO",
+        "DELETE": "Borrar",
+        "CURRENT_DATA": "Datos actuales"
+    },
+    "CHANGE_PASSWORD": {
+        "CHANGE_PASSWORD": "CAMBIAR LA CONTRASEÑA",
+        "CURRENT_PASSWORD": "Contraseña actual",
+        "NEW_PASSWORD": "Nueva contraseña",
+        "PLACE_HOLDER": {
+            "CPASSWORD": "Introducir la contraseña actual",
+            "NPASSWORD": "Ingrese nueva clave"
+        },
+        "ERROR": {
+            "CPASSWORD": "Se requiere contraseña actual",
+            "NPASSWORD": "Se requiere nueva contraseña"
+        }
+    },
+    "DASHBOARD": {
+        "TABLE": {
+            "PRODUCT": "Producto",
+            "QUANTITY": "cantidad",
+            "TOTAL": "Total"
+        }
+    }
+}

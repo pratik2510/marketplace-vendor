@@ -1,0 +1,1321 @@
+<div class="p-breadcrumb p-component">
+    <ul>
+        <li class="p-breadcrumb-home">
+            <a class="p-menuitem-link" routerLink="/product">
+                <span class="p-menuitem-icon pi pi-home ng-star-inserted">
+                </span>
+            </a>
+        </li>
+        <li>
+            <i class="fas fa-chevron-right"></i>
+        </li>
+        <li>
+            <a class="p-menuitem-link" routerLink="/product" *ngIf="!conditions['isLivePage']">
+                <span class="p-menuitem-text">Product</span>
+            </a>
+            <a class="p-menuitem-link" routerLink="/product/live" *ngIf="conditions['isLivePage']">
+                <span class="p-menuitem-text">Live Product</span>
+            </a>
+        </li>
+        <li>
+            <i class="fas fa-chevron-right"></i>
+        </li>
+        <li>
+            <a class="p-menuitem-link p-menuitem-link-active" routerLink="/product/new"
+                *ngIf="!conditions['isEditPage'] && !conditions['isLivePage']">
+                <span class="p-menuitem-text">Add</span>
+            </a>
+            <a class="p-menuitem-link p-menuitem-link-active" [routerLink]="['/product/edit',editProductId]"
+                *ngIf="conditions['isEditPage'] && !conditions['isLivePage'] && !conditions['isDuplicatePage']  ">
+                <span class="p-menuitem-text">Edit</span>
+            </a>
+            <a class="p-menuitem-link p-menuitem-link-active" [routerLink]="['/product/duplicate',editProductId]"
+                *ngIf="conditions['isEditPage'] && !conditions['isLivePage'] && conditions['isDuplicatePage'] ">
+                <span class="p-menuitem-text">Add Duplicate </span>
+            </a>
+            <a class="p-menuitem-link p-menuitem-link-active" [routerLink]="['/product/live/edit',liveProductId]"
+                *ngIf="conditions['isLivePage']">
+                <span class="p-menuitem-text">Detail</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+<div class="row mt-4" *ngIf="isFormPrepared">
+    <div class="col-md-10">
+        <form [formGroup]="newProductForm">
+
+            <nb-card id="region">
+                <nb-card-header>Product Region</nb-card-header>
+                <nb-card-body>
+                    <div class="row">
+                        <div class="col-6">
+
+                            <div class="form-group">
+                                <label class="label">
+                                    Select country
+                                    <span class="text-danger" *ngIf="!conditions['isLivePage']">*</span>
+                                </label>
+
+                                <div *ngIf="conditions['isLivePage'] && f.countryId && f.countryId.value">
+                                    <p class="readonly-text">
+                                        {{f.countryId.value['label'] || '-'}}
+                                    </p>
+                                </div>
+
+                                <div class="add-product" *ngIf="!conditions['isLivePage']">
+                                    <p-dropdown [options]="dropdownBinding['countries']" formControlName="countryId"
+                                        optionLabel="label" [filter]="true" filterBy="label" [showClear]="true"
+                                        placeholder="Select a Country" (onChange)="OnCountryChange($event)"
+                                        status="danger"
+                                        [ngClass]="(submitted && f['countryId']['invalid']) ? 'error' : 'null' ">
+                                        <ng-template pTemplate="selectedItem">
+                                            <div class="country-item country-item-value"
+                                                *ngIf="f.countryId.value.label">
+                                                <div>{{f.countryId.value.label}}</div>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template let-country pTemplate="item">
+                                            <div class="country-item">
+                                                <div>{{country.label}}</div>
+                                            </div>
+                                        </ng-template>
+                                    </p-dropdown>
+                                    <div *ngIf="submitted && f['countryId']['invalid']">
+                                        <small *ngIf="f['countryId']['errors']['required']" class="text-danger">
+                                            Select country
+                                        </small>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="label">
+                                    Select language <span class="text-danger" *ngIf="!conditions['isLivePage']">*</span>
+                                </label>
+
+                                <div *ngIf="conditions['isLivePage'] && f.languageId && f.languageId.value">
+                                    <p class="readonly-text">
+                                        {{f.languageId.value['label'] || '-'}}
+                                    </p>
+                                </div>
+
+                                <div *ngIf="!conditions['isLivePage']">
+                                    <p-dropdown [options]="dropdownBinding['languages']" formControlName="languageId"
+                                        optionLabel="label" [filter]="true" filterBy="label" [showClear]="true"
+                                        placeholder="Select a Language" (onChange)="OnLanguageChange($event)"
+                                        [ngClass]="(submitted && f['languageId']['invalid']) ? 'error' : 'null' ">
+                                        <ng-template pTemplate="selectedItem">
+                                            <div class="country-item country-item-value"
+                                                *ngIf="f.languageId.value.label">
+                                                <div>{{f.languageId.value.label}}</div>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template let-country pTemplate="item">
+                                            <div class="country-item">
+                                                <div>{{country.label}}</div>
+                                            </div>
+                                        </ng-template>
+                                    </p-dropdown>
+                                    <div *ngIf="submitted && f['languageId']['invalid']">
+                                        <small *ngIf="f['languageId']['errors']['required']" class="text-danger">
+                                            Select language
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </nb-card-body>
+            </nb-card>
+
+            <nb-card id="detail">
+                <nb-card-header>
+                    Product Detail
+                </nb-card-header>
+                <nb-card-body>
+
+                    <div class="form-group">
+                        <div class="row" *ngIf="conditions['isEditPage'] && !conditions['isLivePage']">
+                            <div class="col-6">
+                                <div class="row" *ngIf="productStatus">
+                                    <div class="col-4">
+                                        <label class="label">
+                                            Approved Status </label>
+                                    </div>
+                                    <div class="col">
+                                        <p *ngIf="productStatus === 'Approved'">
+                                            <p-tag [value]="productStatus" icon="fas fa-check" styleClass="p-mr-2"
+                                                severity="success"></p-tag>
+
+                                        </p>
+                                        <p *ngIf="productStatus === 'Pending'">
+                                            <p-tag [value]="productStatus" icon="fas fa-stopwatch" styleClass="p-mr-2"
+                                                severity="info"></p-tag>
+                                        </p>
+                                        <p *ngIf="productStatus === 'Rejected'">
+                                            <p-tag [value]="productStatus" icon="fa fa-ban" styleClass="p-mr-2"
+                                                severity="danger"></p-tag>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="row" *ngIf="rejectionMsg && rejectionMsg !== 'null' ">
+                                    <div class="col-4">
+                                        <label class="label">
+                                            Rejection Message
+                                        </label>
+                                    </div>
+                                    <div class="col">
+                                        <p>
+                                            {{rejectionMsg}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="label">
+                                    Name<span class="text-danger" *ngIf="!conditions['isLivePage']">*</span>
+                                </label>
+
+                                <div *ngIf="conditions['isLivePage'] && f['productName'] && f['productName'].value">
+                                    <p class="readonly-text">
+                                        {{f['productName'].value || '-'}}
+                                    </p>
+                                </div>
+
+                                <div *ngIf="!conditions['isLivePage']">
+                                    <input type="text" nbInput fullWidth placeholder="Enter Product name"
+                                        [ngClass]="(submitted && f['productName']['invalid']) ? 'txt-error' : 'null' "
+                                        formControlName="productName">
+                                    <div *ngIf="submitted && f['productName']['invalid']">
+                                        <small *ngIf="f['productName']['errors']['required']" class="text-danger">
+                                            Product name is required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label class="label">
+                                    SKU/PN CDE<span class="text-danger" *ngIf="!conditions['isLivePage']">*</span>
+                                </label>
+
+                                <div *ngIf="conditions['isLivePage'] && f['PNCDE'] && f['PNCDE'].value">
+                                    <p class="readonly-text">
+                                        {{f['PNCDE'].value || '-'}}
+                                    </p>
+                                </div>
+
+
+                                <div class="row" *ngIf="!conditions['isLivePage']">
+                                    <div class="col-7">
+                                        <input type="text" nbInput fullWidth placeholder="Enter SKU/PN CDE"
+                                            formControlName="PNCDE"
+                                            [ngClass]="(submitted && f['PNCDE']['invalid']) ? 'txt-error' : 'null' "
+                                            (input)="PNCodeChange($event)"
+                                            [readonly]="conditions['isEditPage'] && !conditions['isEditPNCDE'] && !this.conditions['isDuplicatePage']">
+
+                                        <div *ngIf="submitted && f['PNCDE']['invalid']">
+                                            <small *ngIf="f['PNCDE']['errors']['required']" class="text-danger">
+                                                SKU/PN CDE is required</small>
+                                        </div>
+                                        <div *ngIf="errorMessage['PNCDE_successMessage']">
+                                            <small class="text-success">
+                                                {{errorMessage['PNCDE_successMessage']}}</small>
+                                        </div>
+                                        <div *ngIf="errorMessage['PNCDE_errorMessage']">
+                                            <small class="text-danger">
+                                                {{errorMessage['PNCDE_errorMessage']}}</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="button" nbButton status="primary" class="mr-4"
+                                            (click)="PNCDE_Check()" hero *ngIf="!conditions['isEditPage']">
+                                            Validate PN CDE
+                                        </button>
+                                        <button type="button" nbButton status="primary" class="mr-4"
+                                            (click)="PNCDE_Check()" hero
+                                            *ngIf="(conditions['isEditPage'] && conditions['isEditPNCDE'] ||  conditions['isEditPage'] && this.conditions['isDuplicatePage'])">
+                                            Validate PN CDE
+                                        </button>
+                                        <button type="button" nbButton status="primary" class="mr-4"
+                                            *ngIf="conditions['isEditPage'] && !conditions['isEditPNCDE'] && !this.conditions['isDuplicatePage']"
+                                            (click)="PNCDE_Edit()" hero>
+                                            Edit PN CDE
+                                        </button>
+
+                                        <!-- <div
+                *ngIf="submitted && isValidatePN && !f['PNCDE']['invalid'] && !f['PNCDE']['errors']['required']">
+                <small class="text-danger">
+                    Validate PN CDN first
+                </small>
+            </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="label"> UOM </label>
+                                <div *ngIf="conditions['isLivePage'] && f['UOM']">
+                                    <p class="readonly-text"> {{f['UOM'].value || '-'}} </p>
+                                </div>
+                                <div *ngIf="!conditions['isLivePage']">
+                                    <input type="text" nbInput fullWidth placeholder="Enter UOM" formControlName="UOM">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label class="label"> Supply type
+                                    <span class="text-danger" *ngIf="!conditions['isLivePage']">*</span>
+                                </label>
+
+                                <div *ngIf="conditions['isLivePage'] && f.supplyTypeId && f.supplyTypeId.value">
+                                    <p class="readonly-text">
+                                        {{f.supplyTypeId.value['label'] || '-'}}
+                                    </p>
+                                </div>
+
+                                <div *ngIf="!conditions['isLivePage']">
+                                    <p-dropdown [options]="dropdownBinding['supplyTypes']"
+                                        formControlName="supplyTypeId" optionLabel="label" [filter]="true"
+                                        filterBy="label" [showClear]="true" placeholder="Select a supply type"
+                                        [ngClass]="(submitted && f['supplyTypeId']['invalid']) ? 'error' : 'null' ">
+                                        <ng-template pTemplate="selectedItem">
+                                            <div class="country-item country-item-value"
+                                                *ngIf="f.supplyTypeId.value.label">
+                                                <div>{{f.supplyTypeId.value.label}}</div>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template let-country pTemplate="item">
+                                            <div class="country-item">
+                                                <div>{{country.label}}</div>
+                                            </div>
+                                        </ng-template>
+                                    </p-dropdown>
+                                    <div *ngIf="submitted && f['supplyTypeId']['invalid']">
+                                        <small *ngIf="f['supplyTypeId']['errors']['required']" class="text-danger">
+                                            Select supply type </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="label">
+                                    Manufacturer/Brands
+                                    <span class="text-danger" *ngIf="!conditions['isLivePage']">*</span>
+                                </label>
+
+                                <div *ngIf="conditions['isLivePage'] && f.manufactureId && f.manufactureId.value">
+                                    <p class="readonly-text">
+                                        {{f.manufactureId.value['label'] || '-'}}
+                                    </p>
+                                </div>
+
+                                <div *ngIf="!conditions['isLivePage']">
+                                    <p-dropdown [options]="dropdownBinding['manufacturerBrands']"
+                                        formControlName="manufactureId" optionLabel="label" [filter]="true"
+                                        filterBy="label" [showClear]="true" placeholder="Select a manufacturer/Brands"
+                                        [ngClass]="(submitted && f['manufactureId']['invalid']) ? 'error' : 'null' ">
+                                        <ng-template pTemplate="selectedItem">
+                                            <div class="country-item country-item-value"
+                                                *ngIf="f.manufactureId.value.label">
+                                                <div>{{f.manufactureId.value.label}}</div>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template let-country pTemplate="item">
+                                            <div class="country-item">
+                                                <div>{{country.label}}</div>
+                                            </div>
+                                        </ng-template>
+                                    </p-dropdown>
+
+                                    <div *ngIf="submitted && f['manufactureId']['invalid']">
+                                        <small *ngIf="f['manufactureId']['errors']['required']" class="text-danger">
+                                            Select category
+                                        </small>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label class="label">
+                                    Category <span class="text-danger" *ngIf="!conditions['isLivePage']">*</span>
+                                </label>
+
+                                <div *ngIf="conditions['isLivePage'] && f.categoryId && f.categoryId.value">
+                                    <p class="readonly-text">
+                                        {{f.categoryId.value.label || '-'}}
+                                    </p>
+                                </div>
+
+                                <div *ngIf="!conditions['isLivePage']">
+
+                                    <p-dropdown [options]="dropdownBinding['categories']" formControlName="categoryId"
+                                        optionLabel="label" [filter]="true" filterBy="label" [showClear]="true"
+                                        placeholder="Select a category"
+                                        [ngClass]="(submitted && f['categoryId']['invalid']) ? 'error' : 'null' ">
+                                        <ng-template pTemplate="selectedItem">
+                                            <div class="country-item country-item-value"
+                                                *ngIf="f.categoryId.value.label">
+                                                <div>{{f.categoryId.value.label}}</div>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template let-country pTemplate="item">
+                                            <div class="country-item">
+                                                <div>{{country.label}}</div>
+                                            </div>
+                                        </ng-template>
+                                    </p-dropdown>
+
+                                    <div *ngIf="submitted && f['categoryId']['invalid']">
+                                        <small *ngIf="f['categoryId']['errors']['required']" class="text-danger">
+                                            Select category
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="label">
+                                    Speciality type
+                                </label>
+
+                                <div *ngIf="conditions['isLivePage'] && f.speciality && f.speciality['value']">
+                                    <p class="readonly-text">
+                                        {{f.speciality['value']['label'] || '-'}}
+                                    </p>
+                                </div>
+
+                                <div *ngIf="!conditions['isLivePage']">
+                                    <p-dropdown [options]="specialityList" formControlName="speciality"
+                                        optionLabel="label" [filter]="true" filterBy="label" [showClear]="true"
+                                        [ngClass]="(submitted && f['speciality']['invalid']) ? 'error' : 'null' "
+                                        placeholder="Select a speciality type">
+                                        <ng-template pTemplate="selectedItem">
+                                            <div class="country-item country-item-value"
+                                                *ngIf="f.speciality.value.label">
+                                                <div>{{f.speciality.value.label}}</div>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template let-country pTemplate="item">
+                                            <div class="country-item">
+                                                <div>{{country.label}}</div>
+                                            </div>
+                                        </ng-template>
+                                    </p-dropdown>
+
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label class="label">
+                                    Country origin
+                                </label>
+
+                                <div *ngIf="conditions['isLivePage'] && f.countryOriginId && f.countryOriginId.value">
+                                    <p class="readonly-text">
+                                        {{f.countryOriginId['value']['label'] || '-'}}
+                                    </p>
+                                </div>
+
+                                <div *ngIf="!conditions['isLivePage']">
+                                    <p-dropdown [options]="dropdownBinding['countryOriginList']"
+                                        formControlName="countryOriginId" optionLabel="label" [filter]="true"
+                                        filterBy="label" [showClear]="true" placeholder="Select a category origin">
+                                        <ng-template pTemplate="selectedItem">
+                                            <div class="country-item country-item-value"
+                                                *ngIf="f.countryOriginId.value.label">
+                                                <div>{{f.countryOriginId.value.label}}</div>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template let-country pTemplate="item">
+                                            <div class="country-item">
+                                                <div>{{country.label}}</div>
+                                            </div>
+                                        </ng-template>
+                                    </p-dropdown>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" formArrayName="sellerProducts">
+                        <div class="row" *ngFor="let sellDetail of sellerDetail.controls; let i=index;"
+                            [formGroupName]="i">
+                            <div class="col-6">
+
+                                <label class="label">
+                                    Delivery Time (Number of days)
+                                </label>
+
+                                <div *ngIf="conditions['isLivePage'] && sellDetail.value">
+                                    <p class="readonly-text">
+                                        {{sellDetail.value.deliveryTime || '-'}}
+                                    </p>
+                                </div>
+
+                                <div *ngIf="!conditions['isLivePage']">
+                                    <input type="number" nbInput fullWidth placeholder="Enter delivery Time"
+                                        formControlName="deliveryTime">
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <label class="label">
+                                    Quantity/ Stock
+                                </label>
+                                <div>
+                                    <input type="number" nbInput fullWidth placeholder="Enter Quantity/ Stock"
+                                        formControlName="quantity" *ngIf="!conditions['isLivePage']">
+                                    <input type="number" nbInput fullWidth placeholder="Enter Quantity/ Stock"
+                                        formControlName="quantity" *ngIf="conditions['isLivePage']" autofocus>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="label">
+                                    Seller Fee :
+                                </label>
+                                <label class="label ml-1">
+                                    {{sellerDetail.value[0]['sellerFee']}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </nb-card-body>
+            </nb-card>
+
+            <nb-card id="price">
+                <nb-card-header>Price</nb-card-header>
+                <nb-card-body>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-2" *ngIf="!conditions['isLivePage']">
+                                <label class="label">
+
+                                </label>
+                                <div class="checkbox mt-1">
+                                    <nb-checkbox formControlName="isQuote" (change)="onSelectQuote($event)">Quote only ?
+                                    </nb-checkbox>
+                                </div>
+                            </div>
+
+                            <div class="col-4" *ngIf="!conditions['isLivePage']">
+                                <label class="label">
+
+                                </label>
+                                <div class="checkbox ml-1 mt-1">
+                                    <nb-checkbox formControlName="noDiscount">
+                                        No/Disable discount code
+                                    </nb-checkbox>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label class="label">
+                                    Override wallet price
+                                </label>
+                                <div *ngIf="conditions['isLivePage'] && f['walletPrice'] && f['walletPrice'].value">
+                                    <p class="readonly-text">
+                                        {{f['walletPrice'].value}}
+                                    </p>
+                                </div>
+                                <div *ngIf="!conditions['isLivePage']">
+                                    <input type="number" nbInput fullWidth placeholder="Override wallet price"
+                                        formControlName="walletPrice">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="label">
+                                    Price <span class="text-danger" *ngIf="!conditions['isLivePage']">*</span>
+                                </label>
+                                <div *ngIf="conditions['isLivePage'] && f['MRP'] && f['MRP'].value">
+                                    <p class="readonly-text">
+                                        {{f['MRP'].value}}
+                                    </p>
+                                </div>
+                                <div *ngIf="!conditions['isLivePage']">
+                                    <input type="number" min="0" formControlName="MRP" nbInput fullWidth
+                                        placeholder="Product price"
+                                        [attr.disabled]="conditions['disablePrice'] ? '' : null" numbersOnly
+                                        [ngClass]="(submitted && f['MRP']['invalid']) ? 'txt-error' : 'null' ">
+                                    <div *ngIf="submitted && f['MRP']['invalid']">
+                                        <small *ngIf="f['MRP']['errors']['required']" class="text-danger">
+                                            Enter Product Price
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label class="label">
+                                    Compare at price
+                                </label>
+                                <div *ngIf="conditions['isLivePage'] && f['sellPrice'] && f['sellPrice'].value">
+                                    <p class="readonly-text">
+                                        {{f['sellPrice'].value}}
+                                    </p>
+                                </div>
+                                <div *ngIf="!conditions['isLivePage']">
+                                    <div class="p-col-12 p-md-12">
+                                        <div class="p-inputgroup">
+                                            <span class="p-inputgroup-addon">
+                                                <nb-checkbox (change)="selectSellPrice($event)"
+                                                    formControlName="isSale">
+                                                </nb-checkbox>
+                                            </span>
+                                            <input type="number" min="0" pInputText placeholder="Compare at price"
+                                                formControlName="sellPrice"
+                                                [attr.disabled]="conditions['disableComparePrice'] ? '' : null">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </nb-card-body>
+            </nb-card>
+
+            <nb-card id="media">
+                <nb-card-header>Media</nb-card-header>
+
+                <nb-card-body *ngIf="conditions['isLivePage']">
+                    <div class="form-group">
+                        <div *ngIf="catalogImages && catalogImages.length > 0">
+                            <div class="productImages">
+                                <h3> Catalog file</h3>
+                                <div class="row">
+                                    <div>
+                                        <span *ngFor="let file of catalogImages ;  let i = index" class="mr-3">
+                                            <img src='assets/images/pdf_image.png' alt="profile"
+                                                class="product-img  mb-3" />
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="productImages.length > 0 || editProductImages.length > 0 ">
+                        <div class="productImages">
+                            <h3>Name/ Image</h3>
+                            <div class="row">
+                                <div *ngIf="productImages.length > 0">
+                                    <span *ngFor="let img of productImages ;  let i =index" class="mr-3">
+                                        <img [src]='img.image' alt="profile" class="product-img  mb-3" />
+                                    </span>
+                                </div>
+
+                                <div *ngIf="editProductImages.length > 0">
+                                    <span *ngFor="let img of editProductImages ;  let i =index" class="mr-3">
+                                        <img [src]='img.image' alt="profile" class="product-img  mb-3" />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </nb-card-body>
+
+                <nb-card-body *ngIf="!conditions['isLivePage']">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <label class="label">
+                                    Catalog
+                                </label>
+                                <div>
+                                    <input type="file" nbInput fullWidth placeholder="Catalog" accept="application/pdf"
+                                        (change)="onFileChange($event , 'catalog' , catelogFileInput )"
+                                        #catelogFileInput>
+                                </div>
+                                <div *ngIf="errorMessage['catalogError']">
+                                    <small class="text-danger">
+                                        {{errorMessage['catalogError']}}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="catalogImages && catalogImages.length > 0">
+                            <div class="productImages">
+                                <h3> Catalog file</h3>
+                                <div class="row">
+                                    <div>
+                                        <span *ngFor="let file of catalogImages ;  let i = index" class="mr-3">
+                                            <img src='assets/images/pdf_image.png' alt="profile"
+                                                class="product-img  mb-3" />
+                                            <button type="button" class="remove-btn"
+                                                (click)="deleteProductImage(i , 'imgCatalog' , null )">
+                                                <nb-icon class="eva close-outline" icon="close-outline" pack="eva">
+                                                </nb-icon>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="editCatalogImages.length > 0">
+                            <div class="productImages">
+                                <h3> Catalog file</h3>
+                                <div class="row">
+                                    <div>
+                                        <span *ngFor="let img of editCatalogImages ;  let i =index" class="mr-3">
+                                            <img src='assets/images/pdf_image.png' alt="Catalog"
+                                                class="product-img  mb-3" />
+                                            <button type="button"
+                                                (click)="deleteProductImage(i , 'uploadedCatalog' , img)"
+                                                class="remove-btn">
+                                                <nb-icon class="eva close-outline" icon="close-outline" pack="eva">
+                                                </nb-icon>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col mt-2">
+                                <label class="label">
+                                    Product images <span class="text-danger" *ngIf="!conditions['isLivePage']">*</span>
+                                </label>
+                                <div>
+                                    <input type="file" nbInput fullWidth placeholder="Product images"
+                                        accept="image/png,image/jpeg" multiple
+                                        [ngClass]="(submitted && ( productImages.length < 0 || editProductImages.length < 0)) ? 'txt-error' : 'null' "
+                                        (change)="onFileChange($event, 'PImages' , productFileInput)" #productFileInput>
+                                    <div *ngIf="errorMessage['imageError']">
+                                        <small class="text-danger">
+                                            {{errorMessage['imageError']}}
+                                        </small>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div *ngIf="productImages.length > 0 || editProductImages.length > 0 ">
+                        <div class="productImages">
+                            <h3>Name/ Image</h3>
+                            <div class="row">
+                                <div *ngIf="productImages.length > 0">
+                                    <span *ngFor="let img of productImages ;  let i =index" class="mr-3">
+                                        <img [src]='img.image' alt="profile" class="product-img  mb-3" />
+                                        <button type="button" (click)="deleteProductImage(i , 'new', null)"
+                                            class="remove-btn">
+                                            <nb-icon class="eva close-outline" icon="close-outline" pack="eva">
+                                            </nb-icon>
+                                        </button>
+                                    </span>
+                                </div>
+
+                                <div *ngIf="editProductImages.length > 0">
+                                    <span *ngFor="let img of editProductImages ;  let i =index" class="mr-3">
+                                        <img [src]='img.image' alt="profile" class="product-img  mb-3" />
+                                        <button type="button" (click)="deleteProductImage(i , 'uploaded' , img)"
+                                            class="remove-btn">
+                                            <nb-icon class="eva close-outline" icon="close-outline" pack="eva">
+                                            </nb-icon>
+                                        </button>
+
+                                        <div>
+                                            <button type="button" *ngIf="!img.isDefault"
+                                                class="btn btn-raised btn-info btn-sm"
+                                                (click)="changeDefaultImage(true, img.productId, img.id, i) ">
+                                                Set as Default
+                                            </button>
+                                            <button type="button" *ngIf="img.isDefault"
+                                                class="btn btn-raised btn-success btn-sm">
+                                                Default
+                                            </button>
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </nb-card-body>
+            </nb-card>
+
+            <nb-card id="destination">
+                <nb-card-header>Product Description</nb-card-header>
+                <nb-card-body>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="label">
+                                    Short description
+                                </label>
+                                <div *ngIf="conditions['isLivePage'] && f['shortDesciption']">
+                                    <p class="readonly-text">
+                                        {{f['shortDesciption'].value || '-'}}
+                                    </p>
+                                </div>
+                                <div *ngIf="!conditions['isLivePage']">
+                                    <textarea nbInput fullWidth placeholder="Short description"
+                                        formControlName="shortDesciption"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label class="label">
+                                    Embedded video
+                                </label>
+                                <div *ngIf="conditions['isLivePage'] && f['video']">
+                                    <p class="readonly-text">
+                                        {{f['video'].value || '-'}}
+                                    </p>
+                                </div>
+                                <div *ngIf="!conditions['isLivePage']">
+                                    <textarea nbInput fullWidth placeholder="Embedded video"
+                                        formControlName="video"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label">
+                            Main description
+                        </label>
+
+                        <div *ngIf="conditions['isLivePage'] && f['description']">
+                            <p class="readonly-text"
+                                [innerHTML]="convertHTML.bypassSecurityTrustHtml(f['description'].value)">
+                                {{f['description'].value || '-'}}
+                            </p>
+                        </div>
+                        <div *ngIf="!conditions['isLivePage']">
+                            <ckeditor formControlName="description" [config]="ckeConfig"></ckeditor>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="label">
+                            Features
+                            <div>
+                                <small> Paste embedded code only </small>
+                            </div>
+                        </label>
+                        <div *ngIf="conditions['isLivePage'] && f['features']">
+                            <p class="readonly-text"
+                                [innerHTML]="convertHTML.bypassSecurityTrustHtml(f['features'].value)">
+                                {{f['features'].value || '-'}}
+                            </p>
+                        </div>
+                        <div *ngIf="!conditions['isLivePage']">
+                            <ckeditor formControlName="features" [config]="ckeConfig"></ckeditor>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="label">
+                            Warranty
+                        </label>
+                        <div *ngIf="conditions['isLivePage'] && f['warranty']">
+                            <p class="readonly-text"
+                                [innerHTML]="convertHTML.bypassSecurityTrustHtml(f['shortDesciption'].value)"> </p>
+                        </div>
+                        <div *ngIf="!conditions['isLivePage']">
+                            <ckeditor formControlName="warranty" [config]="ckeConfig"></ckeditor>
+                        </div>
+                    </div>
+                </nb-card-body>
+            </nb-card>
+
+            <nb-card id="variants" *ngIf="!conditions['isLivePage']">
+                <nb-card-header>Variants</nb-card-header>
+                <nb-card-body>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <nb-checkbox formControlName="isPackage" (change)="onSelectVariant($event)">
+                                This product has multiple options
+                            </nb-checkbox>
+
+                            <button type="button" (click)="openPopup(content); " nbButton status="primary"
+                                class="float-right mb-3" *ngIf="conditions['displayTable']" hero>
+                                <nb-icon class="eva plus-outline" icon="plus-outline" pack="eva">
+                                </nb-icon>
+                                Add variant
+                            </button>
+                        </div>
+
+                        <div>
+                            <table class="table" *ngIf="conditions['displayTable'] && variantDetail.value.length > 0">
+                                <thead>
+                                    <th class="variant-heder-txt">Action</th>
+                                    <th class="variant-heder-txt">
+                                        Name <span class="text-danger" *ngIf="!conditions['isLivePage']">*</span>
+                                    </th>
+                                    <th class="variant-heder-txt">
+                                        SKU/PN Code <span class="text-danger" *ngIf="!conditions['isLivePage']">
+                                            *</span>
+                                    </th>
+                                    <th class="variant-heder-txt">Package</th>
+                                    <th class="variant-heder-txt">
+                                        Quantity /Stock <span class="text-danger" *ngIf="!conditions['isLivePage']">
+                                            *</span>
+                                    </th>
+                                    <th class="variant-heder-txt">Price</th>
+                                    <th class="variant-heder-txt">Compare at Price</th>
+                                    <th class="variant-heder-txt">Override Wallet Price</th>
+                                    <th class="variant-heder-txt">Is Quote?</th>
+                                    <th class="variant-heder-txt">Seller Fee</th>
+                                    <th class="variant-heder-txt">Delivery Time</th>
+                                </thead>
+                                <tbody>
+                                    <ng-container formArrayName="productVariants">
+                                        <tr *ngFor="let blog of variantDetail.controls; let i=index;">
+                                            <ng-container [formGroup]="blog">
+                                                <td>
+                                                    <button type="button" (click)="removeVariants(blog, i)"
+                                                        class="remove-btn">
+                                                        <nb-icon class="eva close-outline" icon="close-outline"
+                                                            pack="eva">
+                                                        </nb-icon>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    {{blog.value.productName}}
+                                                </td>
+                                                <td>
+                                                    {{blog.value.PNCDE}}
+                                                </td>
+                                                <td>
+                                                    <input type="text" nbInput formControlName="packageContent"
+                                                        class="variant-txt">
+                                                </td>
+                                                <td>
+                                                    <input type="number" nbInput formControlName="quantity"
+                                                        class="variant-txt">
+                                                </td>
+                                                <td>
+                                                    <input type="number" nbInput formControlName="MRP"
+                                                        class="variant-txt">
+                                                </td>
+                                                <td>
+                                                    <div class="p-inputgroup" style="min-width: 110px;">
+                                                        <span class="p-inputgroup-addon">
+                                                            <nb-checkbox (change)="selectVariantSellPrice($event)"
+                                                                formControlName="isSale">
+                                                            </nb-checkbox>
+                                                        </span>
+                                                        <input type="number" min="0" pInputText
+                                                            placeholder="Compare at price" formControlName="sellPrice"
+                                                            [attr.disabled]="disableVariantComparePrice ? true : null">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <input type="number" nbInput formControlName="walletPrice"
+                                                        class="variant-txt">
+                                                </td>
+                                                <td>
+                                                    <nb-checkbox formControlName="isQuote">
+                                                    </nb-checkbox>
+                                                </td>
+                                                <td>
+                                                    {{sellerFees || 0}}
+                                                </td>
+                                                <td>
+                                                    <input type="number" nbInput formControlName="deliveryTime"
+                                                        class="variant-txt">
+                                                </td>
+                                            </ng-container>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </nb-card-body>
+            </nb-card>
+
+            <nb-card id="variants"
+                *ngIf="conditions['isLivePage'] && variantDetail.value && variantDetail.value.length > 0">
+                <nb-card-header>Variants</nb-card-header>
+                <nb-card-body>
+                    <div class="form-group">
+                        <div>
+                            <table class="table">
+                                <thead>
+                                    <th class="variant-heder-txt"> Name </th>
+                                    <th class="variant-heder-txt"> SKU/PN Code </th>
+                                    <th class="variant-heder-txt"> Package</th>
+                                    <th class="variant-heder-txt"> Quantity /Stock </th>
+                                    <th class="variant-heder-txt">Price</th>
+                                    <th class="variant-heder-txt">Compare at Price</th>
+                                    <th class="variant-heder-txt">Override Wallet Price</th>
+                                    <th class="variant-heder-txt">Is Quote?</th>
+                                    <th class="variant-heder-txt">Seller Fee</th>
+                                    <th class="variant-heder-txt">Delivery Time</th>
+                                </thead>
+                                <tbody>
+                                    <ng-container formArrayName="productVariants">
+                                        <ng-container>
+                                            <tr *ngFor="let blog of variantDetail.controls; let i=index;"
+                                                [formGroup]="blog">
+                                                <td>
+                                                    {{blog.value && blog.value.productName || '-'}}
+                                                </td>
+                                                <td>
+                                                    {{blog.value && blog.value.PNCDE || '-'}}
+                                                </td>
+                                                <td>
+                                                    {{blog.value && blog.value.packageContent || '-'}}
+                                                </td>
+                                                <td>
+                                                    <input type="number" nbInput formControlName="quantity"
+                                                        class="variant-txt">
+                                                </td>
+                                                <td>
+                                                    {{blog.value && blog.value.MRP || '-'}}
+                                                </td>
+                                                <td>
+                                                    {{blog.value && blog.value.sellPrice || '-'}}
+                                                </td>
+                                                <td>
+                                                    {{blog.value && blog.value.walletPrice || '-'}}
+                                                </td>
+                                                <td>
+                                                    {{blog.value && blog.value.isQuote || '-'}}
+                                                </td>
+                                                <td>
+                                                    {{sellerFees || 0 }}
+                                                </td>
+                                                <td>
+                                                    {{blog.value && blog.value.deliveryTime || '-'}}
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </nb-card-body>
+            </nb-card>
+
+            <nb-card id="seo">
+                <nb-card-header>SEO</nb-card-header>
+                <nb-card-body>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="label">
+                                    Meta title
+                                </label>
+                                <div *ngIf="conditions['isLivePage'] && f['metaTitle'] ">
+                                    <p class="readonly-text">
+                                        {{f['metaTitle'].value || '-'}}
+                                    </p>
+                                </div>
+
+                                <div *ngIf="!conditions['isLivePage']">
+                                    <input type="text" nbInput fullWidth placeholder="Meta Title"
+                                        formControlName="metaTitle">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label class="label">
+                                    Meta keyword
+                                </label>
+                                <div *ngIf="conditions['isLivePage'] && f['metaKeyword']">
+                                    <p class="readonly-text">
+                                        {{f['metaKeyword'].value || '-'}}
+                                    </p>
+                                </div>
+
+                                <div *ngIf="!conditions['isLivePage']">
+                                    <input type="text" nbInput fullWidth placeholder="Meta keyword"
+                                        formControlName="metaKeyword">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label">
+                            Meta description
+                        </label>
+                        <div *ngIf="conditions['isLivePage'] && f['metaDescription']">
+                            <p class="readonly-text">
+                                {{f['metaDescription'].value || '-'}}
+                            </p>
+                        </div>
+
+                        <div *ngIf="!conditions['isLivePage']">
+                            <textarea nbInput fullWidth placeholder="Meta description"
+                                formControlName="metaDescription"></textarea>
+                        </div>
+                    </div>
+                </nb-card-body>
+            </nb-card>
+
+            <nb-card>
+                <nb-card-header>
+                    <button type="submit" (click)="onSubmit(newProductForm.valid)" nbButton status="primary"
+                        class="mr-4">
+                        Submit</button>
+                    <button type="button" nbButton class="custombtn-primary">Back</button>
+                </nb-card-header>
+            </nb-card>
+
+        </form>
+    </div>
+
+    <div class="col-md-2">
+        <div class="sticky-menu">
+            <p class="sticky-menu-items" [ngxScrollTo]="'#region'" [ngxScrollToOffset]="-100">
+                Product Region
+            </p>
+            <p class="sticky-menu-items" [ngxScrollTo]="'#detail'" [ngxScrollToOffset]="-100">
+                Product Detail
+            </p>
+            <p class="sticky-menu-items" [ngxScrollTo]="'#price'" [ngxScrollToOffset]="-100">
+                Price
+            </p>
+            <p class="sticky-menu-items" [ngxScrollTo]="'#media'" [ngxScrollToOffset]="-100">
+                Media
+            </p>
+            <p class="sticky-menu-items" [ngxScrollTo]="'#destination'" [ngxScrollToOffset]="-100">
+                Product Description
+            </p>
+            <p class="sticky-menu-items" [ngxScrollTo]="'#variants'" [ngxScrollToOffset]="-100"
+                *ngIf="(conditions['isLivePage'] && (variantDetail.value && variantDetail.value.length === 0)) === false">
+                Variants
+            </p>
+            <p class="sticky-menu-items" [ngxScrollTo]="'#seo'" [ngxScrollToOffset]="-100">
+                SEO
+            </p>
+        </div>
+    </div>
+
+</div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Add Variant</h4>
+        <button type="button" class="close" aria-label="Close"
+            (click)="modal.dismiss('Cross click') ; newVariantForm.reset() ; ">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="newVariantForm">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="label">
+                            Name <span class="text-danger" *ngIf="!conditions['isLivePage']">*</span>
+                        </label>
+                        <div>
+                            <input type="text" nbInput fullWidth placeholder="Enter Product name"
+                                [ngClass]="(variantSubmitted && variantForm['productName']['invalid']) ? 'txt-error' : 'null' "
+                                formControlName="productName">
+                        </div>
+                        <div *ngIf="variantSubmitted && variantForm['productName']['invalid']" class="error-message">
+
+                            <small *ngIf="variantForm['productName']['errors']['required']" class="text-danger">
+                                Enter product name
+                            </small>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="label">
+                            SKU/PN Code <span class="text-danger" *ngIf="!conditions['isLivePage']">*</span>
+                        </label>
+                        <div class="row">
+                            <div class="col-8">
+                                <input type="text" nbInput fullWidth placeholder="Enter SKU/PN Code"
+                                    formControlName="PNCDE" (input)="PNCodeChange($event)"
+                                    [ngClass]="(variantSubmitted && variantForm['PNCDE']['invalid']) ? 'txt-error' : 'null' ">
+                                <div *ngIf="variantSubmitted && variantForm['PNCDE']['invalid']" class="error-message">
+                                    <small *ngIf="variantForm['PNCDE']['errors']['required']" class="text-danger">
+                                        Enter SKU/PN Code
+                                    </small>
+                                </div>
+                                <div *ngIf="errorMessage['PNCDE_errorMessage_variant']">
+                                    <small class="text-danger">
+                                        {{errorMessage['PNCDE_errorMessage_variant']}}
+                                    </small>
+                                </div>
+                                <div *ngIf="errorMessage['PNCDE_successMessage_variant']">
+                                    <small class="text-success">
+                                        {{errorMessage['PNCDE_successMessage_variant']}}</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <button type="button" nbButton status="primary" (click)="Variant_PNCDE_Check()" hero>
+                                    Validate</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+
+                    <div class="form-group">
+                        <label class="label">
+                            Package
+                        </label>
+                        <div>
+                            <input type="text" nbInput fullWidth placeholder="Enter Package"
+                                formControlName="packageContent">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="label">
+                            Quantity /Stock <span class="text-danger" *ngIf="!conditions['isLivePage']">*</span>
+                        </label>
+                        <div>
+                            <input type="number" nbInput fullWidth placeholder="Enter Quantity /Stock"
+                                formControlName="quantity"
+                                [ngClass]="(variantSubmitted && variantForm['quantity']['invalid']) ? 'txt-error' : 'null' ">
+                            <div *ngIf="variantSubmitted && variantForm['quantity']['invalid']" class="error-message">
+
+                                <small *ngIf="variantForm['quantity']['errors']['required']" class="text-danger">
+                                    Enter quantity
+                                </small>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="label">
+                            Price
+                        </label>
+                        <div>
+                            <input type="number" nbInput fullWidth placeholder="Enter price" formControlName="MRP">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="label">
+                            Compare at price
+                        </label>
+                        <div>
+                            <div class="p-col-12 p-md-12">
+                                <div class="p-inputgroup">
+                                    <span class="p-inputgroup-addon">
+                                        <nb-checkbox (change)="selectVariantSellPrice($event)" formControlName="isSale">
+                                        </nb-checkbox>
+                                    </span>
+                                    <input type="number" min="0" pInputText placeholder="Compare at price"
+                                        formControlName="sellPrice"
+                                        [attr.disabled]="disableVariantComparePrice ? true : null">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="label">
+                            Overall Wallet Price
+                        </label>
+                        <div>
+                            <input type="number" nbInput fullWidth placeholder="Enter compare at price"
+                                formControlName="walletPrice">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+
+                    <div class="form-group">
+                        <div>
+                            <label class="label">
+                            </label>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="is-quote-label">
+                                    <nb-checkbox (change)="selectVariantSellPrice($event)" formControlName="isQuote"> Is
+                                        Quote
+                                    </nb-checkbox>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="is-quote-label">
+                                    <label class="label mr-2">
+                                        Seller Fee :
+                                    </label>
+                                    <label>
+                                        {{sellerFees || 0}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="label">
+                            Delivery Time (Number of days)
+                        </label>
+                        <div>
+                            <input type="number" nbInput fullWidth placeholder="Enter delivery Time"
+                                formControlName="deliveryTime">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" nbButton status="primary" (click)="saveVariant()" hero>
+            Save</button>
+    </div>
+</ng-template>
+

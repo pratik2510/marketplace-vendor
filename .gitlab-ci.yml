@@ -1,0 +1,53 @@
+image: node:12.16
+
+stages:
+  - build
+  - deploy
+  - flushcache
+
+#caching for reuse
+cache:
+ key: ${CI_COMMIT_REF_SLUG}
+ paths:
+ - node_modules/
+ - dist/
+
+
+install_dependencies:
+  stage: build
+  only:
+    - main
+  script:
+    - npm install -g @angular/cli@12.1.0
+    - npm i
+    - ng build --prod --base-href="/"
+  artifacts:
+    paths:
+      - dist/
+deploy_stage:
+  stage: deploy
+  environment: deploy
+  only:
+    - main
+  script:
+    - mkdir -p ~/.ssh
+    - echo -e "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 400 ~/.ssh/id_rsa
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - pwd
+    - cd ~/.ssh && scp -i id_rsa -r /builds/lumiere32-v2/lumier/team-frontend/lumiere-vendor/dist/* ubuntu@$DEPLOY_SERVER:/var/www/html/website/vendor-angular/
+    - ssh -i ~/.ssh/id_rsa ubuntu@$DEPLOY_SERVER "sudo chmod -R 777 /var/www/html/website/vendor-angular && npm i && sudo pm2 restart all"
+
+# Job Three for flush cache to cloudflare
+flushcache:
+  image: docker:stable
+  stage: flushcache
+  only:
+    - main
+  before_script:
+    - apk add --update curl && rm -rf /var/cache/apk/*
+  script:
+    - |
+        curl --fail --output "/dev/null" --silent --show-error -X POST "https://api.cloudflare.com/client/v4/zones/$CF_ZONE_ID/purge_cache" \
+        -H "Authorization: Bearer $CF_API_TOKEN" -H "Content-Type: application/json" \
+        --data '{"purge_everything":true}'

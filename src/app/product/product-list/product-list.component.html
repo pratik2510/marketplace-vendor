@@ -1,0 +1,197 @@
+<form [formGroup]="filterForm">
+
+    <h4 class="mb-3">
+        {{ tableTitle | translate }}
+    </h4>
+
+    <!-- Filters -->
+    <div class="table-filter-background">
+        <div class="row ">
+            <div class="col-md-7">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="label label_color">
+                                {{ 'PRODUCT_LIST.SEARCH' | translate }}
+                            </label>
+                            <div class="form-group input-with-icon" >
+                                <i class="fas fa-search input-icon header-language-icon"></i>
+                                <input type="text" class="form-control dark-bg"  style="border: none;"
+                                    placeholder="{{'PRODUCT_LIST.PLACE_HOLDER.SEARCH_TXT' | translate }}"
+                                    formControlName="searchKey" (input)="OnSearchChange($event)">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="label label_color">
+                                {{ 'PRODUCT_LIST.COUNTRY' | translate }}
+                            </label>
+                            <div class="table-dropdown">
+                                <p-dropdown [options]="countries" formControlName="countryId" optionLabel="label"
+                                    [filter]="true" filterBy="label" [showClear]="true" class="dark-bg"
+                                    placeholder="{{'PRODUCT_LIST.PLACE_HOLDER.SELECT_COUNTRY' | translate }}"
+                                    (onChange)="OnCountryChange($event)" status="danger">
+                                    <ng-template pTemplate="selectedItem">
+                                        <div class="country-item country-item-value" *ngIf="f.countryId.value.label">
+                                            <div>{{f.countryId.value.label}}</div>
+                                        </div>
+                                    </ng-template>
+                                    <ng-template let-country pTemplate="item">
+                                        <div class="country-item">
+                                            <div>{{country.label}}</div>
+                                        </div>
+                                    </ng-template>
+                                </p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="label label_color">
+                                {{ 'PRODUCT_LIST.CATEGORY' | translate }}
+                            </label>
+                            <div class="table-dropdown">
+                                <p-dropdown [options]="categories" formControlName="categoryId" optionLabel="label"
+                                    [filter]="true" filterBy="label" [showClear]="true" class="dark-bg"
+                                    placeholder="{{'PRODUCT_LIST.PLACE_HOLDER.SELECT_CATEGORY' | translate }}"
+                                    (onChange)="OnCategoryChange($event)">
+                                    <ng-template pTemplate="selectedItem">
+                                        <div class="country-item country-item-value" *ngIf="f.categoryId.value.label">
+                                            <div>{{f.categoryId.value.label}}</div>
+                                        </div>
+                                    </ng-template>
+                                    <ng-template let-country pTemplate="item">
+                                        <div class="country-item">
+                                            <div>{{country.label}}</div>
+                                        </div>
+                                    </ng-template>
+                                </p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 text-right mt-4">
+                <div class="d-flex justify-content-end pb-3">
+
+                    <button type="button" nbButton class="mr-1 ml-1" (click)="exportMyProduct()"
+                        *ngIf="isLiveProduct" [disabled]="isLoading" status="info">
+                        <i class="fas fa-sync"></i>
+                        <span class="ml-2"> Sync to My Products </span>
+                    </button>
+
+                    <button type="button" nbButton status="primary" class="mr-1 ml-1 " [routerLink]="['/product','new']"
+                        *ngIf="!isLiveProduct">
+                        {{ 'PRODUCT_LIST.ADD_NEW' | translate }}
+                    </button>
+
+                    <p-splitButton label="{{ 'PRODUCT_LIST.EXPORT' | translate }}" [model]="exportAllData"
+                        styleClass="p-button-success p-mb-2 ml-1 mr-1" nbButton status="success">
+                    </p-splitButton>
+                </div>
+            </div>
+
+            <!-- <div class="col col-md-2 col-sm-12">
+                <div class="form-group">
+                    <label class="label">
+                        {{ 'PRODUCT_LIST.SEARCH' | translate }}
+                    </label>
+                    <div class="form-group input-with-icon">
+                        <i class="fas fa-search input-icon"></i>
+                        <input type="text" class="form-control"
+                            placeholder="{{'PRODUCT_LIST.PLACE_HOLDER.SEARCH_TXT' | translate }}"
+                            formControlName="searchKey" (input)="OnSearchChange($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-2 col-sm-12">
+                <div class="form-group">
+                    <label class="label">
+                        {{ 'PRODUCT_LIST.COUNTRY' | translate }}
+                    </label>
+                    <div class="table-dropdown">
+                        <p-dropdown [options]="countries" formControlName="countryId" optionLabel="label"
+                            [filter]="true" filterBy="label" [showClear]="true"
+                            placeholder="{{'PRODUCT_LIST.PLACE_HOLDER.SELECT_COUNTRY' | translate }}"
+                            (onChange)="OnCountryChange($event)" status="danger">
+                            <ng-template pTemplate="selectedItem">
+                                <div class="country-item country-item-value" *ngIf="f.countryId.value.label">
+                                    <div>{{f.countryId.value.label}}</div>
+                                </div>
+                            </ng-template>
+                            <ng-template let-country pTemplate="item">
+                                <div class="country-item">
+                                    <div>{{country.label}}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-2 col-sm-12">
+                <div class="form-group">
+                    <label class="label">
+                        {{ 'PRODUCT_LIST.CATEGORY' | translate }}
+                    </label>
+                    <div class="table-dropdown">
+                        <p-dropdown [options]="categories" formControlName="categoryId" optionLabel="label"
+                            [filter]="true" filterBy="label" [showClear]="true"
+                            placeholder="{{'PRODUCT_LIST.PLACE_HOLDER.SELECT_CATEGORY' | translate }}"
+                            (onChange)="OnCategoryChange($event)">
+                            <ng-template pTemplate="selectedItem">
+                                <div class="country-item country-item-value" *ngIf="f.categoryId.value.label">
+                                    <div>{{f.categoryId.value.label}}</div>
+                                </div>
+                            </ng-template>
+                            <ng-template let-country pTemplate="item">
+                                <div class="country-item">
+                                    <div>{{country.label}}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col  mt-4 col-md-2 col-sm-6 text-right">
+                <button type="button" nbButton class="mr-1 ml-1 custombtn-primary" (click)="exportMyProduct()"
+                    *ngIf="isLiveProduct" [disabled]="isLoading">
+                    Sync to My Products
+                    <i class="fa fa-spinner fa-spin mr-2 ml-2" aria-hidden="true" *ngIf="isLoading"></i>
+                </button>
+            </div>
+
+            <div class="col mt-4 col-md-2 col-sm-6 text-right">
+
+                <p-splitButton label="{{ 'PRODUCT_LIST.EXPORT' | translate }}" [model]="exportAllData"
+                    styleClass="p-button-success p-mb-2 ml-1 mr-1 custombtn-primary">
+                </p-splitButton>
+
+                <button type="button" nbButton status="primary" class="mr-1 ml-1 " [routerLink]="['/product','new']"
+                    *ngIf="!isLiveProduct">
+                    {{ 'PRODUCT_LIST.ADD_NEW' | translate }}
+                </button>
+            </div> -->
+
+        </div>
+    </div>
+
+    <!-- Dynamic Common Table -->
+    <ngx-dynamic-table [columnData]=" isLiveProduct ?  LiveProductColumnData : ProductColumnData"
+        [TableContent]="products" [childColumnData]="isLiveProduct ?  LiveChildColumnData : ProductChildColumnData"
+        childTableKey="productVariants" [actions]=" isLiveProduct ? liveProductActions : productActions"
+        masterTablePrimaryKey="id" childTablePrimaryKey="id" (deleteChildRow)="fetchAction($event)"
+        (appliedShorting)="applyShorting($event)" [currentPage]="f.currentPage.value">
+    </ngx-dynamic-table>
+
+    <!-- Pagination -->
+    <div *ngIf="products && products.length > 0">
+        <p-paginator [rows]="10" [totalRecords]="totalProduct" (onPageChange)="paginate($event)" #paginator>
+        </p-paginator>
+    </div>
+
+</form>
+
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

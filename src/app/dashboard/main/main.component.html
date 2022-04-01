@@ -1,0 +1,304 @@
+<h4 class="mb-3 test"> Dashboard </h4>
+
+<form [formGroup]="filterForm">
+    <div class="row mt-4">
+
+        <div class="col-md-9">
+            <nb-card>
+                
+                <nb-card-header class="filter-header table-filter-background diff-header">
+                    <div class="row mt-3 mb-3 ">
+                        <div class="col-md-8"> </div>
+                        <div class="col-md-4">
+                            <div class="mr-3">
+                                <p-calendar dateFormat="yy-mm-dd" hideOnDateTimeSelect="true" [showIcon]="true"
+                                    class="w-100" selectionMode="range" [readonlyInput]="true" [numberOfMonths]="2"
+                                    formControlName="selectedDate" [maxDate]="currentDate" autoZIndex="true"
+                                    baseZIndex="9999" showButtonBar="true"
+                                    placeholder="{{'ORDER_MODULE.PLACE_HOLDER.SELECT_DATE' | translate }}"
+                                    (onClickOutside)="OnDateSelection()" (onClearClick)="clearDate()">
+
+                                    <ng-template pTemplate="footer" style="border-top: 1px solid #dee2e6;">
+
+                                        <button type="button" nbButton class="mr-1 ml-1 blue-btn"
+                                            (click)="getTimePeriod(7, null)" size="tiny">
+                                            {{'COMMON_KEYS.CALENDAR.LAST7DAYS' | translate }}
+                                        </button>
+
+                                        <button type="button" nbButton class="mr-1 ml-1 blue-btn"
+                                            (click)="getTimePeriod(30, null)" size="tiny">
+                                            {{'COMMON_KEYS.CALENDAR.LAST30DAYS' | translate }}
+                                        </button>
+
+                                        <button type="button" nbButton class="mr-1 ml-1 blue-btn"
+                                            (click)="getTimePeriod(null , 3)" size="tiny">
+                                            {{'COMMON_KEYS.CALENDAR.LAST3MONTH' | translate }}
+                                        </button>
+
+                                        <button type="button" nbButton class="mr-1 ml-1 blue-btn"
+                                            (click)="getTimePeriod(null , 5)" size="tiny">
+                                            {{'COMMON_KEYS.CALENDAR.LAST5MONTH' | translate }}
+                                        </button>
+
+                                        <button type="button" nbButton class="mr-1 ml-1 blue-btn"
+                                            (click)="sinceInception()" size="tiny">
+                                            Since inception
+                                        </button>
+
+                                    </ng-template>
+
+                                </p-calendar>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <ngb-accordion>
+                <ngb-panel>
+                            <ng-template ngbPanelTitle>
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex mt-1">
+                                        <button type="button" nbButton class="mr-1 ml-1 custombtn-primary " size="tiny">
+                                            <i class="fa fa-filter" aria-hidden="true"></i>
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <ng-template ngbPanelContent>
+                                <ng-container>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label">
+                                                    products
+                                                </label>
+
+                                                <p-dropdown [options]="dropdownBinding['countries']"
+                                                    styleClass="bg-white" formControlName="Product" optionLabel="label"
+                                                    [filter]="true" filterBy="label" [showClear]="true"
+                                                    placeholder="Select Product" (onChange)="OnCountryChange($event)"
+                                                    status="danger">
+                                                    <ng-template pTemplate="selectedItem">
+                                                        <div class="country-item country-item-value">
+                                                            <div>{{f.Product.value.label}}</div>
+                                                        </div>
+                                                    </ng-template>
+                                                    <ng-template let-Product pTemplate="item">
+                                                        <div class="country-item">
+                                                            <div>{{Product.label}}</div>
+                                                        </div>
+                                                    </ng-template>
+                                                </p-dropdown>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label">
+                                                    Brands
+                                                </label>
+                                                <p-dropdown [options]="dropdownBinding['countries']"
+                                                    styleClass="bg-white" formControlName="Brand" optionLabel="label"
+                                                    [filter]="true" filterBy="label" [showClear]="true"
+                                                    placeholder="Select Brand" (onChange)="OnCountryChange($event)"
+                                                    status="danger">
+                                                    <ng-template pTemplate="selectedItem">
+                                                        <div class="country-item country-item-value">
+                                                            <div>{{f.Brand.value.label}}</div>
+                                                        </div>
+                                                    </ng-template>
+                                                    <ng-template let-Brand pTemplate="item">
+                                                        <div class="country-item">
+                                                            <div>{{Brand.label}}</div>
+                                                        </div>
+                                                    </ng-template>
+                                                </p-dropdown>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label">
+                                                    Main Category
+                                                </label>
+                                                <p-dropdown [options]="dropdownBinding['countries']"
+                                                    styleClass="bg-white" formControlName="mainCategory"
+                                                    optionLabel="label" [filter]="true" filterBy="label"
+                                                    [showClear]="true" placeholder="Select Main Category"
+                                                    (onChange)="OnCountryChange($event)" status="danger">
+                                                    <ng-template pTemplate="selectedItem">
+                                                        <div class="country-item country-item-value">
+                                                            <div>{{f.mainCategory.value.label}}</div>
+                                                        </div>
+                                                    </ng-template>
+                                                    <ng-template let-mainCategory pTemplate="item">
+                                                        <div class="country-item">
+                                                            <div>{{mainCategory.label}}</div>
+                                                        </div>
+                                                    </ng-template>
+                                                </p-dropdown>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label">
+                                                    Sub-Category
+                                                </label>
+                                                <p-dropdown [options]="dropdownBinding['countries']"
+                                                    styleClass="bg-white" formControlName="subCategory"
+                                                    optionLabel="label" [filter]="true" filterBy="label"
+                                                    [showClear]="true" placeholder="Select Sub-Category"
+                                                    (onChange)="OnCountryChange($event)" status="danger">
+                                                    <ng-template pTemplate="selectedItem">
+                                                        <div class="country-item country-item-value">
+                                                            <div>{{f.subCategory.value.label}}</div>
+                                                        </div>
+                                                    </ng-template>
+                                                    <ng-template let-subCategory pTemplate="item">
+                                                        <div class="country-item">
+                                                            <div>{{subCategory.label}}</div>
+                                                        </div>
+                                                    </ng-template>
+                                                </p-dropdown>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label">
+                                                    Date
+                                                </label>
+                                                <p-calendar dateFormat="yy-mm-dd" hideOnDateTimeSelect="true"
+                                                    [showIcon]="true" class="w-100" selectionMode="range"
+                                                    [readonlyInput]="true" [numberOfMonths]="2"
+                                                    formControlName="selectedDate" [maxDate]="currentDate"
+                                                    autoZIndex="true" baseZIndex="9999" showButtonBar="true"
+                                                    placeholder="{{'ORDER_MODULE.PLACE_HOLDER.SELECT_DATE' | translate }}"
+                                                    (onClickOutside)="OnDateSelection()" (onClearClick)="clearDate()">
+
+                                                    <ng-template pTemplate="footer">
+
+                                                        <button type="button" nbButton
+                                                            class="mr-1 ml-1 custombtn-primary"
+                                                            (click)="getTimePeriod(7, null)" size="tiny">
+                                                            {{'COMMON_KEYS.CALENDAR.LAST7DAYS' | translate }}
+                                                        </button>
+
+                                                        <button type="button" nbButton
+                                                            class="mr-1 ml-1 custombtn-primary"
+                                                            (click)="getTimePeriod(30, null)" size="tiny">
+                                                            {{'COMMON_KEYS.CALENDAR.LAST30DAYS' | translate }}
+                                                        </button>
+
+                                                        <button type="button" nbButton
+                                                            class="mr-1 ml-1 custombtn-primary"
+                                                            (click)="getTimePeriod(null , 3)" size="tiny">
+                                                            {{'COMMON_KEYS.CALENDAR.LAST3MONTH' | translate }}
+                                                        </button>
+
+                                                        <button type="button" nbButton
+                                                            class="mr-1 ml-1 custombtn-primary"
+                                                            (click)="getTimePeriod(null , 5)" size="tiny">
+                                                            {{'COMMON_KEYS.CALENDAR.LAST5MONTH' | translate }}
+                                                        </button>
+
+                                                        <button type="button" nbButton
+                                                            class="mr-1 ml-1 custombtn-primary"
+                                                            (click)="sinceInception()" size="tiny">
+                                                            Since inception
+                                                        </button>
+
+                                                    </ng-template>
+
+                                                </p-calendar>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                 <ng-container>
+                                <p class="filter-loading">
+                                    <i class="fa fa-spinner fa-spin mr-2" aria-hidden="true"></i>
+                                    Loading
+                                </p>
+                            </ng-container> 
+                            </ng-template>
+                        </ngb-panel> 
+                     </ngb-accordion> -->
+                </nb-card-header>
+
+                <nb-card-header *ngIf="barChartData && barChartData.length > 0" > Earning </nb-card-header>
+                <nb-card-body>
+                    <div class="row" *ngIf="barChartData && barChartData.length > 0">
+                        <div class="col-md-12 col-sm-12 col-12">
+                            <!-- BAR CHART -->
+                            <ngx-dynamic-chart [chartOption]="chartOption" [ChartData]="barChartData" ChartType="bar"
+                                [chartLabels]="barChartLabels"></ngx-dynamic-chart>
+                        </div>
+
+                        <!-- LINE CHART -->
+                        <!-- <ngx-dynamic-chart [chartOption]="chartOption" [ChartData]="barChartData" ChartType="line"
+                            [chartLabels]="barChartLabels"></ngx-dynamic-chart> -->
+
+                        <!-- DOUGHNUT CHART -->
+                        <!-- <ngx-dynamic-chart [chartOption]="chartOption" [ChartData]="barChartData" ChartType="doughnut"
+                            [chartLabels]="barChartLabels"></ngx-dynamic-chart> -->
+
+                        <!-- PIE CHART -->
+                        <!-- <ngx-dynamic-chart [chartOption]="chartOption" [ChartData]="barChartData" ChartType="pie"
+                            [chartLabels]="barChartLabels"></ngx-dynamic-chart> -->
+
+                    </div>
+                    <div class="row" *ngIf="barChartData && barChartData.length == 0">
+                        <div class="col-md-12 col-sm-12 col-12">
+                            <p>No data found</p>
+                        </div>
+                    </div>
+                </nb-card-body>
+            </nb-card>
+            <div class="row">
+                <div class="col-md-6">
+                    <nb-card>
+                        <nb-card-header class="ncard-header table-filter-background">
+                            <span>TOP SELLING PRODUCT BY QUANTITY</span>
+                        </nb-card-header>
+                        <nb-card-body class="p-0 mb-3">
+                            <ngx-dynamic-table [columnData]="productQuantityColumnData "
+                                [TableContent]=" tableData['quantityTable']" [currentPage]="0" >
+                            </ngx-dynamic-table>
+                        </nb-card-body>
+                    </nb-card>
+                </div>
+                <div class="col-md-6">
+                    <nb-card>
+                        <nb-card-header class="ncard-header table-filter-background">
+                            <span>TOP SELLING PRODUCT BY PRICE</span>
+                        </nb-card-header>
+                        <nb-card-body class="p-0 mb-3">
+                            <ngx-dynamic-table [columnData]="productPriceColumnData"
+                                [TableContent]="tableData['topProductAmount']" [currentPage]="0">
+                            </ngx-dynamic-table>
+                        </nb-card-body>
+                    </nb-card>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="sticky-menu dashboard-sidebar">
+                <nb-card class="mb-2" *ngFor="let section of overViewSection">
+                    <nb-card-body>
+                        <div class="progress-info">
+                            <div class="subtitle">{{ section.title}}</div>
+                            <div class="h3 mb-0" [ngClass]="section.textColor"> {{ section.Value}} </div>
+                            <a class="viewmore"  [routerLink]="section.link" [queryParams]="section.queryParam"
+                                *ngIf="section.isViewMore" nbTooltip="View More" nbTooltipPlacement="bottom" >
+                                <span class="pointer"  [ngStyle]=" section.bgColor ? {'background': section.bgColor} : ''">
+                                    <i class="fas fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </nb-card-body>
+                </nb-card>
+            </div>
+        </div>
+
+    </div>
+</form>

@@ -1,0 +1,240 @@
+{
+    "COMMON_KEYS": {
+        "SPANISH": "Española",
+        "ENGLISH": "English",
+        "LUMIERE": "Lumiere32 Seller Hub",
+        "SUBMIT": "Submit",
+        "BACK": "Back",
+        "SAVE": "Save",
+        "ACTION": "Action",
+        "FOOTER1": "Copyrights © Lumiere32",
+        "FOOTER2": "All rights reserved",
+        "SR_NO": "Sr No.",
+        "CALENDAR": {
+            "LAST7DAYS": "Last 7 days",
+            "LAST30DAYS": "Last 30 days",
+            "LAST3MONTH": "Last 3 months",
+            "LAST5MONTH": "Last 5 months"
+        }
+    },
+    "LOGIN_PAGE": {
+        "SELLER_LOGIN": "SELLER LOGIN",
+        "LOGIN": "Log In",
+        "WELCOME_TEXT": "Welcome back, please login to your account.",
+        "USERNAME": "User name",
+        "PASSWORD": "Password",
+        "FORGOT_PASSWORD": "Forgot Password?",
+        "PLACE_HOLDER": {
+            "EMAIL": "Enter user name",
+            "PASSWORD": "Enter Password"
+        },
+        "ERROR": {
+            "USERNAME": "User Name is required",
+            "PASSWORD": "Password is required"
+        }
+    },
+    "PRODUCT_MODULE": {
+        "PRODUCT": "Product",
+        "LIVE_PRODUCT": "Live Product",
+        "ADD": "Add",
+        "EDIT": "Edit",
+        "ADD_DUPLICATE": "Add Duplicate",
+        "DETAIL": "Detail",
+        "PRODUCT_REGION": "Product Region",
+        "SELECT_COUNTRY": "Select country",
+        "SELECT_LANGUAGE": "Select language",
+        "PRODUCT_DETAIL": "Product Detail",
+        "APPROVED_STATUS": "Approved Status",
+        "REJECT_MESSAGE": "Rejection Message",
+        "NAME": "Name",
+        "SKU_PN_CDE": "SKU/PN CDE",
+        "UOM": "UOM",
+        "SUPPLY_TYPE": "Supply type",
+        "MANUFACTURER_BRAND": "Manufacturer/Brands",
+        "CATEGORY": "Category",
+        "SPECIALITY_TYPE": "Speciality type",
+        "COUNTRY_ORIGIN": "Country origin",
+        "DELIVERY_TIME": "Delivery Time (Number of days)",
+        "QUANTITY": "Quantity/ Stock ",
+        "SELLER_FEE": "Seller Fee",
+        "PRICE": "Price",
+        "QUOTE_ONLY": "Quote only ?",
+        "DISCOUNT_CODE": "No/Disable discount code",
+        "WALLET_PRICE": "Override wallet price",
+        "COMPARE_PRICE": "Compare at price",
+        "MEDIA": "Media",
+        "CATALOG_FILE": "Catalog file",
+        "NAME_IMAGE": "Name/ Image",
+        "NAME_IMAGE_INFO": "( Click on that image to set as default image )",
+        "CATALOG": "Catalog",
+        "SET_DEFAULT_IMAGE_BTN": "Set as Default",
+        "DEFAULT_BTN": "Default",
+        "PRODUCT_IMAGE": "Product images",
+        "PRODUCT_DESCRIPTION": "Product Description",
+        "SHORT_DESCRIPTION": "Short description",
+        "EMBEDDED_VIDEO": "Embedded video",
+        "MAIN_DESCRIPTION": "Main description",
+        "FEATURES": "Features",
+        "PASTE_CODE": "Paste embedded code only",
+        "WARRANTY": "Warranty",
+        "VARIANTS": "Variants",
+        "PRODUCT_MULTIPLE_OPTION": "This product has multiple options",
+        "ADD_VARIANT": "Add variant",
+        "QUOTE": "Quote",
+        "VARIANT_TABLE": {
+            "VARIANT_ID": "Variant Id",
+            "PACKAGE": "Package",
+            "IS_QUOTE": "Is Quote?",
+            "DELIVERY_TIME": "Delivery Time"
+        },
+        "SEO": "SEO",
+        "META_TITLE": "Meta title",
+        "META_KEYWORD": "Meta keyword",
+        "META_DESCRIPTION": "Meta description",
+        "VALIDATE_PNCDE": "Validate PN CDE",
+        "VALIDATE": "Validate",
+        "EDIT_PNCDE": "Edit PN CDE",
+        "PLACE_HOLDER": {
+            "COUNTRY": "Select a Country",
+            "LANGUAGE": "Select a Language",
+            "PRODUCT_NAME": "Enter Product name",
+            "SKU_PN_CDE": "Enter SKU/PN CDE",
+            "UOM": "Enter UOM",
+            "SUPPLY_TYPE": "Select a supply type",
+            "MANUFACTURER_TYPE": "Select a manufacturer/Brands",
+            "CATEGORY": "Select a category",
+            "SPECIALITY_TYPE": "Select a speciality type",
+            "COUNTRY_ORIGIN": "Select a category origin",
+            "DELIVERY_TIME": "Enter delivery Time",
+            "QUANTITY_STOCK": "Enter Quantity/ Stock",
+            "OVERRIDE_WALLET": "Override wallet price",
+            "PRICE": "Product price",
+            "COMPARE_PRICE": "Compare at price",
+            "CATALOG": "Catalog",
+            "PRODUCT_IMAGE": "Product images",
+            "SHORT_DESCRIPTION": "Short description",
+            "EMBEDDED_VIDEO": "Embedded video",
+            "META_TITLE": "Meta Title",
+            "META_KEY": "Meta keyword",
+            "META_DESCRIPTION": "Meta description",
+            "PACKAGE": "Enter Package"
+        },
+        "ERROR": {
+            "COUNTRY": "Select country",
+            "LANGUAGE": "Select language",
+            "PRODUCT_NAME": "Product name is required",
+            "SKU_PN_CDE": "SKU/PN CDE is required",
+            "SUPPLY_TYPE": "Select supply type",
+            "CATEGORY": "Select category",
+            "PRODUCT_PRICE": "Enter Product Price",
+            "VARIANT_PRICE": "Enter Price",
+            "QUANTITY": "Enter quantity",
+            "QUANTITY_MIN": "Quantity/ Stock value should be greater than 0",
+            "PRICE_MIN": "Price value should be greater than 0",
+            "QUANTITY_PATTERN": "Invalid quantity value"
+        }
+    },
+    "PRODUCT_LIST": {
+        "TITTLE": {
+            "LIVE_PRODUCTS": "Live Products",
+            "PRODUCTS": "Products",
+            "TODAYORDER": "Today's Orders",
+            "TOTALORDER": " Orders",
+            "OUTOFSTOCK": "Out of stock"
+        },
+        "SEARCH": "Search",
+        "COUNTRY": "Country",
+        "CATEGORY": "Category",
+        "IMPORT": "Import",
+        "ADD_NEW": "Add new",
+        "SR_NO": "Sr No.",
+        "PRODUCT_ID": "Product Id",
+        "PRODUCT_CODE": "Product Code",
+        "NAME": "Name",
+        "MANUFACTURER": "Manufacturer",
+        "PRICE": "Price",
+        "APPROVED_STATUS": "Approved Status",
+        "NO_DATA_FOUND": "No data found",
+        "VARIANT": "Variant",
+        "QUANTITY": "Quantity",
+        "SALE_PRICE": "Sale Price",
+        "WALLET_PRICE": "Wallet Price",
+        "EXPORT": "Export",
+        "PLACE_HOLDER": {
+            "SEARCH_TXT": "Search name/code",
+            "SELECT_COUNTRY": "Select a Country",
+            "SELECT_CATEGORY": "Select a category"
+        }
+    },
+    "ORDER_MODULE": {
+        "ORDER": "Order",
+        "EXPORT_ORDER": "Export Order",
+        "PURCHASE_ORDER": "Purchase Order No",
+        "DATE": "Date",
+        "SELECT_DURATION": "Select Duration",
+        "ORDER_TOTAL": "Order Total",
+        "NO_DATA_FOUND": "There are no order yet.",
+        "PLACE_HOLDER": {
+            "SEARCH_TXT": "Search",
+            "SELECT_DATE": "Select Duration (YYYY-MM-DD)"
+        }
+    },
+    "USER_PROFILE": {
+        "MY_PROFILE": "My Profile",
+        "PROFILE_DETAIL": "Profile Detail",
+        "NAME": "Name",
+        "PICKUP_ADDRESS": "Pickup Address",
+        "STREET_NAME": "Street Name",
+        "USER_NAME": "User Name",
+        "EMAIL_ID": "Email id",
+        "FLOOR_NUMBER": "Floor Number",
+        "HOUSE_NUMBER": "House Number",
+        "MOBILE_NUMBER": "Mobile Number",
+        "BUILDER_NUMBER": "Builder Number",
+        "PINCODE": "Pincode",
+        "CC_EMAIL": "CC Email id",
+        "ERROR": {
+            "MOBILE": "Mobile number is required",
+            "MOBILE_PATTERN": "Mobile Number must be between 5-15 digits",
+            "PICKUP_ADDRESS": "Pickup Address is required",
+            "PINCODE": "Pincode is required"
+        }
+    },
+    "SIDEBAR_MENU": {
+        "DASHBOARD": "Dashboard",
+        "PRODUCT": "Product",
+        "MY_PRODUCTS": "My Products",
+        "LIVE_PRODUCT": "Live Products",
+        "ORDER": "Order"
+    },
+    "DROPDOWN_OPTION": {
+        "USER_PROFILE": "Profile",
+        "CHANGE_PASSWORD": "Change password",
+        "LOGOUT": "Log out",
+        "DUPLICATE": "Duplicate",
+        "EDIT": "Edit",
+        "DOWNLOAD_PO": "Download PO",
+        "DELETE": "Delete",
+        "CURRENT_DATA": "Current Data"
+    },
+    "CHANGE_PASSWORD": {
+        "CHANGE_PASSWORD": "CHANGE PASSWORD",
+        "CURRENT_PASSWORD": "Current password",
+        "NEW_PASSWORD": "New password",
+        "PLACE_HOLDER": {
+            "CPASSWORD": "Enter current password",
+            "NPASSWORD": "Enter new password "
+        },
+        "ERROR": {
+            "CPASSWORD": "Current password is required",
+            "NPASSWORD": "New password is required"
+        }
+    },
+    "DASHBOARD": {
+        "TABLE": {
+            "PRODUCT": "Product",
+            "QUANTITY": "Quantity",
+            "TOTAL": "Total"
+        }
+    }
+}

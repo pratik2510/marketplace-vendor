@@ -1,0 +1,239 @@
+<!-- STACK TABLE VIEW => CHECK RESPONSIVE VIEW -->
+
+<!-- <div>
+    <p-table responsiveLayout="stack" [value]="TableContent" [autoLayout]="true" [responsive]="true" dataKey="id">
+        <ng-template pTemplate="caption" *ngIf="caption">
+            {{caption}}
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th style="width: 8em" *ngFor="let title of columnData">
+                    {{ title.label | translate }}
+                </th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-data let-columns="columns" let-i="rowIndex" let-expanded="expanded">
+            <tr>
+                <td *ngFor="let title of columnData">
+                    <span class="p-column-title">{{ title.label | translate }}</span>
+                    <div
+                        *ngIf="data['productVariants'] && data['productVariants'].length > 0 && title.type === 'ExpandRow'">
+                        <button type="button" pButton [pRowToggler]="data"
+                            class="p-button-text p-button-rounded p-button-plain"
+                            [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right' ">
+                        </button>
+                    </div>
+                    <p *ngIf="title.type === 'index'">
+                        {{10 *(currentPage)+i+1}}
+                    </p>
+                    <p *ngIf="title.type === 'data'">
+                        {{ getCellValue(title.valueKey, data) }}
+                    </p>
+                    <p *ngIf="title.type === 'date'">
+                        {{ getCellValue(title.valueKey, data) | date: 'yyyy-MM-dd' }}
+                    </p>
+                    <p *ngIf="title.type === 'action'">
+                        <nb-icon class="eva settings-2-outline" icon="settings-2-outline" pack="eva" nbButton
+                            [nbContextMenu]="actions['settingOptions']" nbContextMenuTrigger="click"
+                            nbContextMenuTag="masterSettingMenu"
+                            (click)="settingClick(data[masterTablePrimaryKey],null)">
+                        </nb-icon>
+                    </p>
+                    <p *ngIf="title.type === 'data_design' && getCellValue(title.valueKey, data) === 'Approved'">
+                        <p-tag [value]="getCellValue(title.valueKey, data)" icon="fas fa-check" styleClass="p-mr-2"
+                            severity="success"></p-tag>
+                    </p>
+                    <p *ngIf="title.type === 'data_design' && getCellValue(title.valueKey, data) === 'Pending'">
+                        <p-tag [value]="getCellValue(title.valueKey, data)" icon="fas fa-stopwatch" styleClass="p-mr-2"
+                            severity="info"></p-tag>
+                    </p>
+                    <p *ngIf="title.type === 'data_design' && getCellValue(title.valueKey, data) === 'Rejected'">
+                        <p-tag [value]="getCellValue(title.valueKey, data)" icon="fa fa-ban" styleClass="p-mr-2"
+                            severity="danger"></p-tag>
+                    </p>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="12">
+                    <p class="text-center"> {{ 'PRODUCT_LIST.NO_DATA_FOUND' | translate }} </p>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="rowexpansion" let-data>
+            <tr *ngIf="data[childTableKey] && data[childTableKey].length > 0">
+                <td colspan="11">
+                    <div class="p-p-3 w-100">
+                        <p-table [value]="data[childTableKey]" dataKey="id" [autoLayout]="true" [responsive]="true"
+                            responsiveLayout="stack">
+                            <ng-template pTemplate="caption" *ngIf="caption">
+                                {{childCaption}}
+                            </ng-template>
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th style="width: 8em" *ngFor="let childColumn of childColumnData">
+                                        {{ childColumn.label | translate }}
+                                    </th>
+                                </tr>
+                            </ng-template>
+
+                            <ng-template pTemplate="body" let-childRow>
+                                <tr>
+                                    <td *ngFor="let title of childColumnData">
+                                        <span class="p-column-title">{{ title.label | translate }}</span>
+                                        <p *ngIf="title.type === 'data'">
+                                            {{ getCellValue(title.valueKey, childRow) }}
+                                        </p>
+                                        <p *ngIf="title.type === 'action'">
+                                            <nb-icon class="eva settings-2-outline" icon="settings-2-outline" pack="eva" nbButton
+                                                [nbContextMenu]="actions['settingOptions_variant']" nbContextMenuTrigger="click"
+                                                nbContextMenuTag="childSettingMenu"
+                                                (click)="settingClick(null , childRow[childTablePrimaryKey])">
+                                            </nb-icon>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div> -->
+
+<!---------------------  RESPONSIVE  ----------------------->
+<!-- 
+<p-table [value]="TableContent" [autoLayout]="true" [responsive]="true" dataKey="id" responsiveLayout="scroll"
+  [autoLayout]="true"> -->
+
+<p-table [value]="TableContent" [responsive]="true" dataKey="id" responsiveLayout="scroll" [scrollable]="false"
+    [scrollHeight]="scrollHeight" [resizableColumns]="false" [autoLayout]="true">
+    <ng-template pTemplate="header">
+        <tr>
+            <th *ngFor="let title of columnData">
+                <!-- <th *ngFor="let title of columnData" [ngStyle]="{'max-width': title.colSize ? title.colSize :'8em' }" > -->
+                <!-- <th  [ngStyle]="{'width': title.type || title.type === 'index' ? '2em' :'8em' }" *ngFor="let title of columnData" [pSortableColumn]="title.label"> -->
+                {{ title.label | translate }}
+                <!-- <p-sortIcon [field]="title.label" *ngIf="title.IsShort" (click)="applyShort(title.label)">
+                </p-sortIcon> -->
+            </th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-data let-i="rowIndex" let-expanded="expanded">
+        <tr>
+            <td *ngFor="let title of columnData">
+                <div
+                    *ngIf="data['productVariants'] && data['productVariants'].length > 0 && title.type === 'ExpandRow'">
+                    <button type="button" pButton [pRowToggler]="data"
+                        class="p-button-text p-button-rounded p-button-plain"
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right' ">
+                    </button>
+                </div>
+                <p *ngIf="title.type === 'index'">
+                    {{10 *(currentPage)+i+1}}
+                </p>
+                <p *ngIf="title.type === 'data'">
+                    {{ getCellValue(title.valueKey, data) }}
+                </p>
+                <p *ngIf="title.type === 'currency'">
+                    {{ getCellValue(title.valueKey, data) | number }}
+                </p>
+                <p *ngIf="title.type === 'date'">
+                    {{ getCellValue(title.valueKey, data) | date: 'yyyy-MM-dd' }}
+                </p>
+                <p *ngIf="title.type === 'action'">
+                    <nb-icon class="eva settings-2-outline" icon="settings-2-outline" pack="eva" nbButton
+                        [nbContextMenu]="actions['settingOptions']" nbContextMenuTrigger="click"
+                        nbContextMenuTag="masterSettingMenu" (click)="settingClick(data[masterTablePrimaryKey],null)">
+                    </nb-icon>
+                </p>
+                <p *ngIf="title.type === 'data_design' && getCellValue(title.valueKey, data) === 'Approved'">
+                    <p-tag [value]="getCellValue(title.valueKey, data)" icon="fas fa-check" styleClass="p-mr-2"
+                        severity="success"></p-tag>
+                </p>
+                <p *ngIf="title.type === 'data_design' && getCellValue(title.valueKey, data) === 'Pending'">
+                    <p-tag [value]="getCellValue(title.valueKey, data)" icon="fas fa-stopwatch" styleClass="p-mr-2"
+                        severity="info"></p-tag>
+                </p>
+                <p *ngIf="title.type === 'data_design' && getCellValue(title.valueKey, data) === 'Rejected'">
+                    <p-tag [value]="getCellValue(title.valueKey, data)" icon="fa fa-ban" styleClass="p-mr-2"
+                        severity="danger"></p-tag>
+                </p>
+            </td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="12">
+                <p class="text-center"> {{ 'PRODUCT_LIST.NO_DATA_FOUND' | translate }} </p>
+            </td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="rowexpansion" let-data>
+        <tr *ngIf="data[childTableKey] && data[childTableKey].length > 0">
+            <td colspan="12">
+                <div class="p-p-3 w-100">
+                    <p-table [value]="data[childTableKey]" dataKey="id" [autoLayout]="true" [responsive]="true"
+                        responsiveLayout="scroll">
+
+                        <ng-template pTemplate="header">
+        <tr>
+            <th *ngFor="let childColumn of childColumnData">
+                {{ childColumn.label | translate }}
+            </th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-childRow>
+        <tr>
+            <td *ngFor="let title of childColumnData">
+                <p *ngIf="title.type === 'data'">
+                    {{ getCellValue(title.valueKey, childRow) }}
+                </p>
+                <p *ngIf="title.type === 'currency'">
+                    {{ getCellValue(title.valueKey, childRow) | number }}
+                </p>
+                <p *ngIf="title.type === 'action'">
+                    <nb-icon class="eva settings-2-outline" icon="settings-2-outline" pack="eva" nbButton
+                        [nbContextMenu]="actions['settingOptions_variant']" nbContextMenuTrigger="click"
+                        nbContextMenuTag="childSettingMenu"
+                        (click)="settingClick(null , childRow[childTablePrimaryKey])">
+                    </nb-icon>
+                </p>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+</div>
+</td>
+</tr>
+</ng-template>
+</p-table>
+
+
+<p-toast position="bottom-center" key="deleteVariant" (onClose)="onReject()" [baseZIndex]="5000" styleClass="test">
+    <ng-template let-message pTemplate="message">
+        <div class="p-flex p-flex-column" style="flex: 1">
+            <div class="p-text-center">
+                <h5>{{message.summary}}</h5>
+                <p>{{message.detail}}</p>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button type="button" pButton (click)="onConfirm()" label="Yes"
+                        class="p-button-secondary mr-3 custombtn-primary"></button>
+                    <button type="button" pButton (click)="onReject()" label="No"
+                        class="p-button-secondary custombtn-primary"></button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>

@@ -1,0 +1,83 @@
+<h4 class="mb-3"> {{ tableTitle | translate }} </h4>
+
+<form [formGroup]="filterForm">
+    <!-- Filters -->
+    <div class="table-filter-background">
+        <div class="row align-items-end">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="label label_color">
+                                {{ 'PRODUCT_LIST.SEARCH' | translate }}
+                            </label>
+                            <div class="form-group input-with-icon" >
+                                <i class="fas fa-search input-icon header-language-icon"></i>
+                                <input type="text" class="form-control dark-bg w-100"  style="border: none;"
+                                    placeholder="{{'PRODUCT_LIST.PLACE_HOLDER.SEARCH_TXT' | translate }}"
+                                    formControlName="searchKey" (input)="OnSearchChange($event)">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <div>
+                                <label class="label label_color">
+                                    {{ 'ORDER_MODULE.SELECT_DURATION' | translate }}
+                                </label>
+                                <p-calendar dateFormat="yy-mm-dd" hideOnDateTimeSelect="true" [showIcon]="true"
+                                    class="w-100" selectionMode="range" [readonlyInput]="true" [numberOfMonths]="2"
+                                    formControlName="selectedDate" [maxDate]="currentDate" showButtonBar="true"
+                                    placeholder="{{'ORDER_MODULE.PLACE_HOLDER.SELECT_DATE' | translate }}"
+                                    (onClickOutside)="OnDateSelection()" (onClearClick)="clearDate()">
+                                    <ng-template pTemplate="footer">
+
+                                        <button type="button" nbButton class="mr-1 ml-1  blue-btn"
+                                            (click)="getTimePeriod(7, null)" size="tiny">
+                                            {{'COMMON_KEYS.CALENDAR.LAST7DAYS' | translate }}
+                                        </button>
+
+                                        <button type="button" nbButton class="mr-1 ml-1  blue-btn"
+                                            (click)="getTimePeriod(30, null)" size="tiny">
+                                            {{'COMMON_KEYS.CALENDAR.LAST30DAYS' | translate }}
+                                        </button>
+
+                                        <button type="button" nbButton class="mr-1 ml-1  blue-btn"
+                                            (click)="getTimePeriod(null , 3)" size="tiny">
+                                            {{'COMMON_KEYS.CALENDAR.LAST3MONTH' | translate }}
+                                        </button>
+
+                                        <button type="button" nbButton class="mr-1 ml-1  blue-btn"
+                                            (click)="getTimePeriod(null , 5)" size="tiny">
+                                            {{'COMMON_KEYS.CALENDAR.LAST5MONTH' | translate }}
+                                        </button>
+
+                                    </ng-template>
+                                </p-calendar>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-right">
+                <div class="d-flex justify-content-end pb-3">
+                    <button type="button" nbButton class="mr-1 ml-1" status="success" (click)="exportDataAsExcel()">
+                        {{ 'ORDER_MODULE.EXPORT_ORDER' | translate }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dynamic Common Table -->
+    <ngx-dynamic-table [columnData]="orderColumnData" [TableContent]="orderList" [actions]="orderActions"
+        masterTablePrimaryKey="orderId" [currentPage]="f.currentPage.value" (appliedShorting)="applyShorting($event)">
+    </ngx-dynamic-table>
+
+    <!-- Pagination -->
+    <div *ngIf="orderList && orderList.length> 0">
+        <p-paginator [rows]="10" [totalRecords]="totalProduct" (onPageChange)="paginate($event)" #paginator>
+        </p-paginator>
+    </div>
+
+</form>

@@ -1,0 +1,7 @@
+<ngx-print-column-layout>
+    <div class="print-icon m-5"  *ngIf="previewHTML" >
+        <i class="fa fa-download mr-3 " (click)="convertToPDF()"></i>
+        <i class="fa fa-print " (click)="print()"></i>
+    </div>
+    <div *ngIf="previewHTML" [innerHTML]="convertHTML.bypassSecurityTrustHtml(previewHTML)" class="m-5 title" id="contentToConvert"> </div>
+</ngx-print-column-layout>

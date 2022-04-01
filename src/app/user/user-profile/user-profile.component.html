@@ -1,0 +1,189 @@
+<h4 class="mb-3"> {{ 'USER_PROFILE.MY_PROFILE' | translate }}</h4>
+<div *ngIf="isDataLoad">
+    <form [formGroup]="userProfileForm">
+        <nb-card>
+            <nb-card-header class="table-header ligth-bg">{{ 'USER_PROFILE.PROFILE_DETAIL' | translate }} </nb-card-header>
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-md-6 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-6">
+                                <div class="form-group">
+                                    <label class="label label_color">
+                                        {{ 'USER_PROFILE.NAME' | translate }}
+                                    </label>
+                                    <div *ngIf="userProfileForm.controls  && userProfileForm.controls.sellerName.value">
+                                        <p class="readonly-text">
+                                            {{f['sellerName'].value || '-'}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-6">
+                                <div class="form-group">
+                                    <label class="label label_color">
+                                        {{ 'USER_PROFILE.USER_NAME' | translate }}
+                                    </label>
+                                    <div *ngIf="userProfileForm.controls && userProfileForm.controls.userName.value">
+                                        <p class="readonly-text">
+                                            {{f['userName'].value || '-'}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 col-lg-6">
+                                <div class="form-group">
+                                    <label class="label label_color">
+                                        {{ 'USER_PROFILE.EMAIL_ID' | translate }}
+                                    </label>
+                                    <div *ngIf="userProfileForm.controls && userProfileForm.controls.sellerEmail.value">
+                                        <p class="readonly-text">
+                                            {{ f['sellerEmail'].value || '-'}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-lg-6">
+                                <div class="form-group">
+                                    <label class="label label_color">
+                                        {{ 'USER_PROFILE.MOBILE_NUMBER' | translate }}
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="number" nbInput formControlName="mobileNo" fullWidth
+                                            [ngClass]="(submitted && f['mobileNo']['invalid']) ? 'txt-error' : 'null' " />
+                                    </div>
+                                    <div *ngIf="submitted && f['mobileNo']['invalid']">
+                                        <small *ngIf="f['mobileNo']['errors']['required']" class="text-danger">
+                                            {{ 'USER_PROFILE.ERROR.MOBILE' | translate }}
+                                        </small>
+                                        <small *ngIf="f['mobileNo']['errors']['pattern']" class="text-danger">
+                                            {{ 'USER_PROFILE.ERROR.MOBILE_PATTERN' | translate }}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="label label_color">
+                                        {{ 'USER_PROFILE.CC_EMAIL' | translate }}
+                                    </label>
+                                    <div class="custom_chip dark-bg">
+                                        <p-chips formControlName="ccEmail" separator="," nbInput fullWidth
+                                            [allowDuplicate]="false">
+                                        </p-chips>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-xs-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="label label_color">
+                                    {{ 'USER_PROFILE.PICKUP_ADDRESS' | translate }}
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div>
+                                    <input type="text" nbInput formControlName="pickupAddress" fullWidth
+                                        [ngClass]="(submitted && f['pickupAddress']['invalid']) ? 'txt-error' : 'null' " />
+                                </div>
+                                <div *ngIf="submitted && f['pickupAddress']['invalid']">
+                                    <small *ngIf="f['pickupAddress']['errors']['required']" class="text-danger">
+                                        {{ 'USER_PROFILE.ERROR.PICKUP_ADDRESS' | translate }}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="label label_color mt-3">
+                                        {{ 'USER_PROFILE.STREET_NAME' | translate }}
+                                    </label>
+                                    <div>
+                                        <input type="text" nbInput formControlName="streetName" fullWidth />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-3">
+                                <div class="form-group">
+                                    <label class="label label_color">
+                                        {{ 'USER_PROFILE.FLOOR_NUMBER' | translate }}
+                                    </label>
+                                    <div>
+                                        <input type="text" nbInput formControlName="floorNo" fullWidth />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <div class="form-group">
+                                    <label class="label label_color">
+                                        {{ 'USER_PROFILE.HOUSE_NUMBER' | translate }}
+                                    </label>
+                                    <div>
+                                        <input type="" nbInput formControlName="houseNo" fullWidth />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-3">
+                                <div class="form-group">
+                                    <label class="label label_color">
+                                        {{ 'USER_PROFILE.BUILDER_NUMBER' | translate }}
+                                    </label>
+                                    <div>
+                                        <input type="text" nbInput formControlName="buildingName" fullWidth />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <div class="form-group">
+                                    <label class="label label_color">
+                                        {{ 'USER_PROFILE.PINCODE' | translate }}
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="number" nbInput formControlName="pincode" fullWidth
+                                            [ngClass]="(submitted && f['pincode']['invalid']) ? 'txt-error' : 'null' " />
+                                    </div>
+                                    <div *ngIf="submitted && f['pincode']['invalid']">
+                                        <small *ngIf="f['pincode']['errors']['required']" class="text-danger">
+                                            {{ 'USER_PROFILE.PINCODE' | translate }}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
+
+        <nb-card>
+            <nb-card-header>
+
+                <button type="submit" (click)="updateProfile(userProfileForm.valid)" nbButton status="primary"
+                    class="mr-4">
+                    {{ 'COMMON_KEYS.SAVE' | translate }}
+                    <i class="fa fa-spinner fa-spin mr-2 ml-2" aria-hidden="true" *ngIf="isLoading"></i>
+                </button>
+                <button type="button" nbButton status="success" [routerLink]="['/dashboard']">
+                    {{ 'COMMON_KEYS.BACK' | translate }}
+                </button>
+
+            </nb-card-header>
+        </nb-card>
+
+    </form>
+</div>
